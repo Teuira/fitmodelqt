@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/Diff.png</file>
+        <file>assets/Eq.png</file>
+        <file>assets/Sim.png</file>
+        <file>assets/splash.png</file>
+        <file>assets/tree.png</file>
+    </qresource>
+</RCC>
