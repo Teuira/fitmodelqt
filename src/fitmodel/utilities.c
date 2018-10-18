@@ -19,6 +19,8 @@ the GNU public licence.  See http://www.opensource.org for details.
 #include "free.h"
 #include "options.h"
 
+#include <locale.h>
+
 /* #define ERANGE 1 */
 extern int errno;
 
@@ -345,6 +347,7 @@ arbre *Read_Tree(char *s_tree)
   arbre *tree;
   int degree;
 
+  setlocale(LC_ALL, "C");
 
   n_otu=0;
   For(i,(int)strlen(s_tree)) if(s_tree[i] == ',') n_otu++;
