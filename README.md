@@ -1,4 +1,4 @@
-# FitModelQt: a gui for fitmodel
+# FitModelQt: a GUI for fitmodel
 
 fitmodel is developed by Stephane Guindon (https://github.com/stephaneguindon/fitmodel)
 
