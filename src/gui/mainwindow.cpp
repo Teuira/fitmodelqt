@@ -2,7 +2,10 @@
 #include "ui_mainwindow.h"
 
 #include <iostream>
+
 #include <qfiledialog.h>
+#include <qdesktopwidget.h>
+#include <qstyle.h>
 
 #include "dialoglauncher.h"
 extern "C" {
@@ -25,6 +28,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
+    // Centers window on screen
+    this->setGeometry(
+        QStyle::alignedRect(
+            Qt::LeftToRight,
+            Qt::AlignCenter,
+            this->size(),
+            qApp->desktop()->availableGeometry()
+        )
+    );
 }
 
 MainWindow::~MainWindow()
