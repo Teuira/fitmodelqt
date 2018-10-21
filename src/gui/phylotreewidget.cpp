@@ -276,6 +276,8 @@ void PhyloTreeWidget::handleReport()
     std::cout << "Report requested" << std::endl;
     QString fileName = QFileDialog::getSaveFileName(this,
                                                     tr("Save report"), "", tr("PDF file (*.pdf)"));
+    if (!fileName.endsWith(".pdf"))
+        fileName += ".pdf";
     if (fileName != "") {
         QPdfWriter pdfwriter(fileName);
         pdfwriter.setPageSize(QPageSize(QPageSize::A4));
