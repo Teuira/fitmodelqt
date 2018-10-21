@@ -6,6 +6,12 @@ DialogInfo::DialogInfo(QWidget *parent) :
     ui(new Ui::DialogInfo)
 {
     ui->setupUi(this);
+    // Sets background to white.
+    QPalette pal = palette();
+    pal.setColor(QPalette::Background, Qt::white);
+    this->setAutoFillBackground(true);
+    this->setPalette(pal);
+    this->show();
 }
 
 DialogInfo::~DialogInfo()
