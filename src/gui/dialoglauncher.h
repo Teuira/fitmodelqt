@@ -20,6 +20,8 @@ private slots:
 
     void on_btnBrowseTree_clicked();
 
+    void on_bntRun_clicked();
+
 private:
     Ui::DialogLauncher *ui;
 };
