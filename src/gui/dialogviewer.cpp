@@ -9,7 +9,7 @@
 
 #define PRINT_DEBUG
 
-DialogViewer::DialogViewer(QString filePath, QWidget *parent) :
+DialogViewer::DialogViewer(QString filePath, QString statsPath, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogViewer)
 {

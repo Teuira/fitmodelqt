@@ -17,11 +17,11 @@ public:
 
 private slots:
     void on_btnBrowseTree_clicked();
-
     void on_btnNext_clicked();
 
 private:
     Ui::DialogTreeSelector *ui;
+
 };
 
 #endif // DIALOGTREESELECTOR_H

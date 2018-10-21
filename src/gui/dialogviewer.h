@@ -15,7 +15,7 @@ class DialogViewer : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogViewer(QString filePath, QWidget *parent = nullptr);
+    explicit DialogViewer(QString filePath, QString statsPath, QWidget *parent = nullptr);
     ~DialogViewer();
 
 private:

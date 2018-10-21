@@ -16,8 +16,8 @@
   <widget class="QCommandLinkButton" name="btnNext">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>400</y>
+     <x>550</x>
+     <y>430</y>
      <width>172</width>
      <height>41</height>
     </rect>
@@ -29,37 +29,42 @@
   <widget class="QLineEdit" name="leditStatsPath">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>210</y>
-     <width>113</width>
+     <x>70</x>
+     <y>240</y>
+     <width>400</width>
      <height>20</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnStatsBrowse">
+  <widget class="QPushButton" name="btnBrowseStats">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>230</y>
+     <x>490</x>
+     <y>240</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>Browse</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblStatsHeader">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>130</y>
-     <width>47</width>
-     <height>13</height>
+     <x>10</x>
+     <y>10</y>
+     <width>561</width>
+     <height>91</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>Select statistics file (optional):</string>
    </property>
   </widget>
  </widget>
