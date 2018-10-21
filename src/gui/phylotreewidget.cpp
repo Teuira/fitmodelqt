@@ -138,7 +138,12 @@ void PhyloTreeWidget::paintEvent(QPaintEvent *)
     }
     if(this->currTree != nullptr) {
         QFont font = painter.font();
-        font.setPixelSize((double)this->currTree->GetDrawStruct()->page_height / (double)this->currTree->GetTree()->n_otu);
+        int fontSize = (int)((double)this->currTree->GetDrawStruct()->page_height / (double)this->currTree->GetTree()->n_otu);
+        // Sets max font size.
+        if (fontSize > 15) {
+            fontSize = 15;
+        }
+        font.setPixelSize(fontSize);
         painter.setFont(font);
         Print_Tree_Qt(&painter, this->currTree->GetRoot(), this->currTree->GetDrawStruct(), this->currTree->GetTree());
     }
@@ -371,13 +376,13 @@ void PhyloTreeWidget::Print_Tree_Qt(QPainter *pnt, edge *b_root, tdraw *w, arbre
     if(b_root->left->tax) {
         qreal rcHeight = (double)w->page_height / tree->n_otu;
         QRectF rcLabel(w->xcoord[b_root->left->num] + LABEL_X_OFFSET, w->ycoord[b_root->left->num] + BAR_HEIGHT - rcHeight / 2.0, 100, rcHeight);
-        pnt->drawText(rcLabel, Qt::AlignLeft, QString::fromStdString(b_root->left->name));
+        pnt->drawText(rcLabel, Qt::AlignCenter, QString::fromStdString(b_root->left->name));
     }
 
     if(b_root->rght->tax) {
         qreal rcHeight = (double)w->page_height / tree->n_otu;
         QRectF rcLabel(w->xcoord[b_root->rght->num] + LABEL_X_OFFSET, w->ycoord[b_root->rght->num] + BAR_HEIGHT - rcHeight / 2.0, 100, rcHeight);
-        pnt->drawText(rcLabel, Qt::AlignLeft, QString::fromStdString(b_root->rght->name));
+        pnt->drawText(rcLabel, Qt::AlignCenter, QString::fromStdString(b_root->rght->name));
     }
 
     if(!b_root->left->tax) {
@@ -462,7 +467,7 @@ void PhyloTreeWidget::Print_Tree_Pre_Qt(QPainter *pnt, node *a, node *d, tdraw *
     if(d->tax) {
         qreal rcHeight = (double)w->page_height / tree->n_otu;
         QRectF rcLabel(w->xcoord[d->num] + LABEL_X_OFFSET, w->ycoord[d->num] + BAR_HEIGHT - rcHeight / 2.0, 100, rcHeight);
-        pnt->drawText(rcLabel, Qt::AlignLeft, QString::fromStdString(d->name));
+        pnt->drawText(rcLabel, Qt::AlignCenter, QString::fromStdString(d->name));
         return;
     }
     else {
