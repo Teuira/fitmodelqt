@@ -60,7 +60,7 @@ PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
     connect(btnSnapshot, SIGNAL (released()), this, SLOT (handleSnapshot()));
     connect(btnReport, SIGNAL (released()), this, SLOT (handleReport()));
     connect(this->listPos, SIGNAL(itemClicked(QListWidgetItem*)),
-                this, SLOT(handleListPosClicked(QListWidgetItem*)));
+            this, SLOT(handleListPosClicked(QListWidgetItem*)));
     this->prev->setGeometry(120, 0, 30, 30);
     this->next->setGeometry(150, 0, 30, 30);
     this->btnSnapshot->setGeometry(200, 0, 100, 30);
@@ -261,6 +261,8 @@ void PhyloTreeWidget::handleSnapshot()
     std::cout << "Snapshot requested" << std::endl;
     QString fileName = QFileDialog::getSaveFileName(this,
                                                     tr("Save snapshot"), "", tr("PNG file (*.png)"));
+    if (!fileName.endsWith(".png"))
+        fileName += ".png";
     if (fileName != "") {
         this->grab().save(fileName);
         QMessageBox msgBox;
