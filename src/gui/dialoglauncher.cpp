@@ -8,6 +8,7 @@ DialogLauncher::DialogLauncher(QWidget *parent) :
     ui(new Ui::DialogLauncher)
 {
     ui->setupUi(this);
+    // Sets background to white.
     QPalette pal = palette();
     pal.setColor(QPalette::Background, Qt::white);
     this->setAutoFillBackground(true);
