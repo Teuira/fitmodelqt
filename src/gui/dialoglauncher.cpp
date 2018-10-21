@@ -24,7 +24,7 @@ DialogLauncher::~DialogLauncher()
 void DialogLauncher::on_btnBrowseSeq_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Sequence file"), "", tr("Sequence Files (*.nxs)"));
+        tr("Sequence file"), "", tr("Sequence Files (*.*)"));
     if (fileName == "") {
 #ifdef PRINT_DEBUG
         std::cout << "No file selected!" << std::endl;
@@ -37,7 +37,7 @@ void DialogLauncher::on_btnBrowseSeq_clicked()
 void DialogLauncher::on_btnBrowseTree_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Tree file"), "", tr("Tree Files (*.tree)"));
+        tr("Tree file"), "", tr("Tree Files (*.*)"));
     if (fileName == "") {
 #ifdef PRINT_DEBUG
         std::cout << "No file selected!" << std::endl;
