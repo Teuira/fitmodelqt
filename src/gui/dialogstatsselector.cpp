@@ -29,8 +29,8 @@ DialogStatsSelector::~DialogStatsSelector()
 void DialogStatsSelector::on_btnBrowseStats_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Open tree file"), ""
-                                                    , tr("Tree Files (*.*tree*)"));
+                                                    tr("Open statistics file"), ""
+                                                    , tr("Statistics files (*.*)"));
     if (fileName == "") {
 #ifdef PRINT_DEBUG
         std::cout << "No file selected!" << std::endl;
