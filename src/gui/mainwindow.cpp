@@ -8,10 +8,10 @@
 #include <qstyle.h>
 
 #include "dialoglauncher.h"
+#include "dialogtreeselector.h"
 extern "C" {
 #include "fitmodel/fit_launcher.h"
 }
-#include "dialogviewer.h"
 #include "dialoginfo.h"
 
 #define PRINT_DEBUG
@@ -58,18 +58,10 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     std::cout << "Viewer requested" << std::endl;
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Open tree file"), "", tr("Tree Files (*.*tree*)"));
-    if (fileName == "") {
-#ifdef PRINT_DEBUG
-        std::cout << "No file selected!" << std::endl;
-#endif
-        return;
-    }
     this->setVisible(false);
-    DialogViewer dlgViewer(fileName);
-    dlgViewer.setModal(true);
-    dlgViewer.exec();
+    DialogTreeSelector dlgTreeSelector;
+    dlgTreeSelector.setModal(true);
+    dlgTreeSelector.exec();
     this->setVisible(true);
     std::cout << "comeback" << std::endl;
 }

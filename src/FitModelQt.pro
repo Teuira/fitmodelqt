@@ -34,7 +34,9 @@ FORMS += \
     gui/dialoglauncher.ui \
     gui/dialogsnippets.ui \
     gui/dialogviewer.ui \
-    gui/mainwindow.ui
+    gui/mainwindow.ui \
+    gui/dialogtreeselector.ui \
+    gui/dialogstatsselector.ui
 
 HEADERS += \
     fitmodel/config.h \
@@ -56,7 +58,9 @@ HEADERS += \
     gui/mainwindow.h \
     gui/phylotreewidget.h \
     gui/queryparser.h \
-    gui/tree.h
+    gui/tree.h \
+    gui/dialogtreeselector.h \
+    gui/dialogstatsselector.h
 
 SOURCES += \
     gui/dialoginfo.cpp \
@@ -78,7 +82,9 @@ SOURCES += \
     fitmodel/models.c \
     fitmodel/optimiz.c \
     fitmodel/options.c \
-    fitmodel/utilities.c
+    fitmodel/utilities.c \
+    gui/dialogtreeselector.cpp \
+    gui/dialogstatsselector.cpp
 
 RESOURCES += \
     resources.qrc
