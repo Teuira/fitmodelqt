@@ -19,6 +19,7 @@ public:
     ~PhyloTreeWidget();
     //void SetForest(std::vector<Tree *> *forest);
     void SetName(QString name) {this->name = name;}
+    void SetStatsPath(QString path) {this->statsPath = path;}
     void SetForest(std::vector<FitModelTreeWrapper *> *forest);
 
 protected:
@@ -48,6 +49,7 @@ private:
     QListWidget *listPos;
     QPushButton *btnReport;
     QString name;
+    QString statsPath;
     std::vector<FitModelTreeWrapper *> *forest;
     FitModelTreeWrapper *currTree;
     int currIndex;
