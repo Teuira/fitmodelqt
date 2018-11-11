@@ -23,15 +23,43 @@ void QueryParser::Parse(std::vector<int> *positions)
 {
     if (query == "eq") {
         Eq(positions);
-    } else if (query == "diff") {
+    }
+    else if (query == "diff") {
         Diff(positions);
     }
-    else if (query == "test") {
-            Test(positions);
-        }
     else if (query.find("sim") == 0) {
-        Sim(positions);
-    } else {
+        std::string val = query.substr(4, query.length() - 4);
+        std::cout << val << std::endl;
+        Sim(positions, std::stoi(val));
+    }
+    else if (query.find("has w1") == 0) {
+           HasWx(positions, 0.0);
+    }
+    else if (query.find("has w2") == 0) {
+           HasWx(positions, 0.5);
+    }
+    else if (query.find("has w3") == 0) {
+        HasWx(positions, 1.0);
+    }
+    else if (query.find("from w1 to w2") == 0) {
+        FromXToY(positions, 0.0, 0.5);
+    }
+    else if (query.find("from w1 to w3") == 0) {
+        FromXToY(positions, 0.0, 1.0);
+    }
+    else if (query.find("from w2 to w1") == 0) {
+        FromXToY(positions, 0.5, 0.0);
+    }
+    else if (query.find("from w2 to w3") == 0) {
+        FromXToY(positions, 0.5, 1.0);
+    }
+    else if (query.find("from w3 to w1") == 0) {
+        FromXToY(positions, 1.0, 0.0);
+    }
+    else if (query.find("from w3 to w2") == 0) {
+        FromXToY(positions, 1.0, 0.5);
+    }
+    else {
         QMessageBox msgBox;
         msgBox.setText("Unrecognized query!");
         msgBox.exec();
@@ -72,14 +100,49 @@ void QueryParser::Diff(std::vector<int> *positions)
     }
 }
 
-void QueryParser::Sim(std::vector<int> *positions)
-{
-
-}
-
-void QueryParser::Test(std::vector<int> *positions)
+void QueryParser::Sim(std::vector<int> *positions, int threshold)
 {
     positions->clear();
-    positions->push_back(20);
-    positions->push_back(40);
+    for (size_t i = 0; i < this->nodes->size(); i++) {
+        int matchCount = 0;
+        for (size_t y = 0; y < this->nodes->at(i)->size(); y++) {
+            node *curr = this->nodes->at(i)->at(y);
+            node *refNode = nodes->at(this->currTreeIndex)->at(y);
+            if (curr->l_prime[0] == refNode->l_prime[0]) {
+                matchCount++;
+            }
+        }
+        if (static_cast<int>(this->nodes->at(i)->size()) - matchCount < threshold)
+            positions->push_back(static_cast<int>(i));
+    }
+}
+
+void QueryParser::HasWx(std::vector<int> *positions, double wVal)
+{
+    positions->clear();
+    for (size_t i = 0; i < this->nodes->size(); i++) {
+        for (size_t y = 0; y < this->nodes->at(i)->size(); y++) {
+            node *curr = this->nodes->at(i)->at(y);
+            if (curr->l_prime[0] == wVal) {
+                positions->push_back(static_cast<int>(i));
+                break;
+            }
+        }
+    }
+}
+
+void QueryParser::FromXToY(std::vector<int> *positions, double x, double y)
+{
+    positions->clear();
+    for (size_t i = 0; i < this->nodes->size(); i++) {
+        /*
+        for (size_t y = 0; y < this->nodes->at(i)->size(); y++) {
+            node *curr = this->nodes->at(i)->at(y);
+            if (curr->l_prime[0] == wVal) {
+                positions->push_back(static_cast<int>(i));
+                break;
+            }
+        }
+        */
+    }
 }

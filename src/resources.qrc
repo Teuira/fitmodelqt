@@ -5,5 +5,11 @@
         <file>assets/Sim.png</file>
         <file>assets/splash.png</file>
         <file>assets/tree.png</file>
+        <file>assets/GreenToBlue.png</file>
+        <file>assets/RedToBlue.png</file>
+        <file>assets/RedToGreen.png</file>
+        <file>assets/HasBlue.png</file>
+        <file>assets/HasGreen.png</file>
+        <file>assets/HasRed.png</file>
     </qresource>
 </RCC>

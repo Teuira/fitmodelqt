@@ -22,9 +22,9 @@ private:
     size_t currTreeIndex;
     void Eq(std::vector<int> *positions);
     void Diff(std::vector<int> *positions);
-    void Sim(std::vector<int> *positions);
-    void Test(std::vector<int> *positions);
-
+    void Sim(std::vector<int> *positions, int threshold);
+    void HasWx(std::vector<int> *positions, double wVal);
+    void FromXToY(std::vector<int> *positions, double x, double y);
 };
 
 #endif // QUERYPARSER_H

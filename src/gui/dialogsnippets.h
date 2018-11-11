@@ -20,6 +20,12 @@ private slots:
     void on_btnEq_clicked();
     void on_btnDiff_clicked();
     void on_btnSim_clicked();
+    void on_btnHasRed_clicked();
+    void on_btnHasGreen_clicked();
+    void on_btnHasBlue_clicked();
+    void on_btnGreenToBlue_clicked();
+    void on_btnRedToGreen_clicked();
+    void on_btnRedToBlue_clicked();
 
 private:
     Ui::DialogSnippets *ui;

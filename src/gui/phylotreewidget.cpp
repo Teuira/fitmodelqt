@@ -47,6 +47,7 @@ PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
     this->currTree = nullptr;
     this->prev = new QPushButton("<", this);
     this->next = new QPushButton(">", this);
+    this->btnSelectWholeTree = new QPushButton("Whole tree", this);
     this->btnQuery = new QPushButton("Query", this);
     this->btnSnippets = new QPushButton("Snippets", this);
     this->lineQuery = new QLineEdit(this);
@@ -55,6 +56,7 @@ PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
     this->btnReport = new QPushButton("Save Report", this);
     connect(prev, SIGNAL (released()), this, SLOT (handlePrevious()));
     connect(next, SIGNAL (released()), this, SLOT (handleNext()));
+    connect(btnSelectWholeTree, SIGNAL (released()), this, SLOT (handleSelWhole()));
     connect(btnQuery, SIGNAL (released()), this, SLOT (handleQuery()));
     connect(btnSnippets, SIGNAL (released()), this, SLOT (handleSnippets()));
     connect(btnSnapshot, SIGNAL (released()), this, SLOT (handleSnapshot()));
@@ -63,7 +65,8 @@ PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
             this, SLOT(handleListPosClicked(QListWidgetItem*)));
     this->prev->setGeometry(120, 0, 30, 30);
     this->next->setGeometry(150, 0, 30, 30);
-    this->btnSnapshot->setGeometry(200, 0, 100, 30);
+    this->btnSelectWholeTree->setGeometry(200, 0, 100, 30);
+    this->btnSnapshot->setGeometry(320, 0, 100, 30);
     this->positions = new std::vector<int>;
 }
 
@@ -71,6 +74,7 @@ PhyloTreeWidget::~PhyloTreeWidget()
 {
     delete this->prev;
     delete this->next;
+    delete this->btnSelectWholeTree;
     delete this->btnQuery;
     delete this->btnSnippets;
     delete this->lineQuery;
@@ -89,6 +93,9 @@ void PhyloTreeWidget::SetForest(std::vector<FitModelTreeWrapper *> *forest) {
 
 void PhyloTreeWidget::mousePressEvent(QMouseEvent *event)
 {
+    this->btnSelectWholeTree->setStyleSheet(QString("QPushButton {"
+                                                "background-color: transparent"
+                                                "}"));
     if (event->pos().y() > this->height() - 20) {
         std::cout << "pressed for browse" << std::endl;
         // x:w = i=t
@@ -128,8 +135,8 @@ void PhyloTreeWidget::mouseReleaseEvent(QMouseEvent *event)
 void PhyloTreeWidget::paintEvent(QPaintEvent *)
 {
     this->btnQuery->setGeometry(this->width() - 100, 0, 100, 30);
-    this->lineQuery->setGeometry(320, 0, this->width() - 530, 30);
-    this->btnSnippets->setGeometry(this->lineQuery->width() + 330, 0, 100, 30);
+    this->lineQuery->setGeometry(440, 0, this->width() - 680, 30);
+    this->btnSnippets->setGeometry(this->lineQuery->width() + 460, 0, 100, 30);
     this->listPos->setGeometry(TREE_VISUAL_WIDTH, BAR_HEIGHT, this->width() - TREE_VISUAL_WIDTH, this->height() - BAR_HEIGHT - 80);
     this->btnReport->setGeometry(this->listPos->geometry().x(), this->listPos->geometry().y() + this->listPos->geometry().height() + 10, this->listPos->geometry().width(), 30);
     QPainter painter(this);
@@ -194,6 +201,18 @@ void PhyloTreeWidget::handleNext()
         this->currTree = this->forest->at((size_t)this->currIndex);
         this->repaint();
     }
+}
+
+void PhyloTreeWidget::handleSelWhole()
+{
+    std::cout << "Add whole tree" << std::endl;
+    this->selNodes.clear();
+    TraversalAdd(this->currTree->GetRoot(), this->currTree->GetTree());
+    std::cout << "Selected nodes: " << this->selNodes.size() << std::endl;
+    this->btnSelectWholeTree->setStyleSheet(QString("QPushButton {"
+                                                "background-color: yellow"
+                                                "}"));
+    update();
 }
 
 void PhyloTreeWidget::handleQuery()
@@ -478,3 +497,44 @@ void PhyloTreeWidget::Print_Tree_Pre_Qt(QPainter *pnt, node *a, node *d, tdraw *
 
     return;
 }
+
+void PhyloTreeWidget::TraversalAddPre(node *a, node *d, arbre *tree)
+{
+    int i;
+
+    this->selNodes.push_back(d);
+
+    if(d->tax) {
+        return;
+    }
+    else {
+        For(i,3)
+                if(d->v[i] != a)
+                TraversalAddPre(d, d->v[i], tree);
+    }
+
+    return;
+}
+
+void PhyloTreeWidget::TraversalAdd(edge *b_root, arbre *tree)
+{
+    int i;
+
+    this->selNodes.push_back(b_root->left);
+    this->selNodes.push_back(b_root->rght);
+
+    if(!b_root->left->tax) {
+        For(i,3)
+                if((b_root->left->v[i]) && (b_root->left->v[i] != b_root->rght))
+                TraversalAddPre(b_root->left, b_root->left->v[i], tree);
+    }
+
+    if(!b_root->rght->tax) {
+        For(i,3)
+                if((b_root->rght->v[i]) && (b_root->rght->v[i] != b_root->left))
+                TraversalAddPre(b_root->rght, b_root->rght->v[i], tree);
+    }
+
+}
+
+

@@ -33,6 +33,7 @@ signals:
 public slots:
     void handlePrevious();
     void handleNext();
+    void handleSelWhole();
     void handleQuery();
     void handleSnippets();
     void handleSnapshot();
@@ -42,6 +43,7 @@ public slots:
 private:
     QPushButton *prev;
     QPushButton *next;
+    QPushButton *btnSelectWholeTree;
     QPushButton *btnQuery;
     QPushButton *btnSnippets;
     QPushButton *btnSnapshot;
@@ -58,6 +60,8 @@ private:
     std::vector<node *> selNodes;
     void Print_Tree_Qt(QPainter *pnt, edge *b_root, tdraw *w, arbre *tree);
     void Print_Tree_Pre_Qt(QPainter *pnt, node *a, node *d, tdraw *w, arbre *tree);
+    void TraversalAdd(edge *b_root, arbre *tre);
+    void TraversalAddPre(node *a, node *d, arbre *tree);
     std::vector<int> *positions;
 
 };
