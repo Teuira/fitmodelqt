@@ -3,6 +3,7 @@
 #include "dialogsnippets.h"
 
 #include <algorithm>
+#include <fstream>
 #include <iostream>
 
 #include <QPainter>
@@ -315,7 +316,7 @@ void PhyloTreeWidget::handleReport()
         painter.drawText(20, 200, line);
         line = "Query: ";
         painter.scale(2.0, 2.0);
-        line += this->lineQuery->text();
+        line += this->lineQuery->text() == "" ? "No query" : this->lineQuery->text();
         painter.drawText(20, 400, line);
         line = "Match count: ";
         line.append(QString::fromStdString(std::to_string(this->positions->size())));
@@ -331,7 +332,22 @@ void PhyloTreeWidget::handleReport()
         if (this->statsPath == "") {
             std::cout << "No report";
         } else {
-
+            painter.scale(0.1, 0.1);
+            int statsYPos = 10500;
+            painter.drawText(20, statsYPos, "Statistics:");
+            statsYPos += 50;
+            std::ifstream infile(this->statsPath.toStdString());
+            std::string line;
+            int i = 1;
+            while (std::getline(infile, line))
+            {
+                statsYPos += 100;
+                painter.drawText(20, statsYPos, QString::fromStdString(line));
+                if (i > 25) {
+                    break;
+                }
+                i += 1;
+            }
         }
         // End of report.
         QMessageBox msgBox;
