@@ -131,18 +131,28 @@ void QueryParser::HasWx(std::vector<int> *positions, double wVal)
     }
 }
 
-void QueryParser::FromXToY(std::vector<int> *positions, double x, double y)
+void QueryParser::FromXToY(std::vector<int> *positions, double xVal, double yVal)
 {
     positions->clear();
     for (size_t i = 0; i < this->nodes->size(); i++) {
-        /*
         for (size_t y = 0; y < this->nodes->at(i)->size(); y++) {
             node *curr = this->nodes->at(i)->at(y);
-            if (curr->l_prime[0] == wVal) {
-                positions->push_back(static_cast<int>(i));
-                break;
+            node *child1 = curr->v[1];
+            node *child2 = curr->v[2];
+            if (curr->l_prime[0] == xVal) {
+                if (child1) {
+                    if (child1->l_prime[0] == yVal) {
+                        positions->push_back(static_cast<int>(i));
+                        break;
+                    }
+                }
+                if (child2) {
+                    if (child2->l_prime[0] == yVal) {
+                        positions->push_back(static_cast<int>(i));
+                        break;
+                    }
+                }
             }
         }
-        */
     }
 }
