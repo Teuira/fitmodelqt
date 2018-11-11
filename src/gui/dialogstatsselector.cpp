@@ -42,7 +42,7 @@ void DialogStatsSelector::on_btnBrowseStats_clicked()
 
 void DialogStatsSelector::on_btnNext_clicked()
 {
-    if (ui->leditStatsPath->text() == "") {
+    if (ui->leditStatsPath->text() != "") {
         std::cout << "Stats path ok." << std::endl;
     } else {
         std::cout << "No stats file." << std::endl;

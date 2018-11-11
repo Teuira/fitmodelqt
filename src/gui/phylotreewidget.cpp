@@ -327,7 +327,13 @@ void PhyloTreeWidget::handleReport()
         painter.scale(5, 5);
         QPixmap img = this->grab(QRect(0, BAR_HEIGHT, 800, 700));
         painter.drawImage(50, 300, img.toImage());
+        // Appends report if present.
+        if (this->statsPath == "") {
+            std::cout << "No report";
+        } else {
 
+        }
+        // End of report.
         QMessageBox msgBox;
         msgBox.setText("Report saved!");
         msgBox.exec();

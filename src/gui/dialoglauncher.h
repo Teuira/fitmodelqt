@@ -17,9 +17,7 @@ public:
 
 private slots:
     void on_btnBrowseSeq_clicked();
-
     void on_btnBrowseTree_clicked();
-
     void on_bntRun_clicked();
 
 private:

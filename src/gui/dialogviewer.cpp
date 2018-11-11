@@ -26,6 +26,7 @@ DialogViewer::DialogViewer(QString filePath, QString statsPath, QWidget *parent)
     QFileInfo fi(filePath);
     QString fileName = fi.fileName();
     ui->phyloWidget->SetName(fileName);
+    ui->phyloWidget->SetStatsPath(statsPath);
     ui->phyloWidget->SetForest(this->trees);
 }
 
