@@ -288,7 +288,7 @@ void PhyloTreeWidget::handleSnapshot()
                                                     tr("Save snapshot"), "", tr("PNG file (*.png)"));
     if (!fileName.endsWith(".png"))
         fileName += ".png";
-    if (fileName != "") {
+    if (fileName != ".png") {
         this->grab().save(fileName);
         QMessageBox msgBox;
         msgBox.setText("Image saved!");
