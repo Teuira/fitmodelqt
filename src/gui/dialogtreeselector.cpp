@@ -44,6 +44,7 @@ void DialogTreeSelector::on_btnNext_clicked()
     if (ui->leditTreePath->text() == "") {
         QMessageBox msgBox;
         msgBox.setText("Select a file first.");
+        msgBox.setIcon(QMessageBox::Warning);
         msgBox.exec();
         return;
     }

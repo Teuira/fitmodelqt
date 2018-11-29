@@ -6,6 +6,7 @@
 #include <qfiledialog.h>
 #include <qdesktopwidget.h>
 #include <qstyle.h>
+#include <qdesktopservices.h>
 
 #include "dialoglauncher.h"
 #include "dialogtreeselector.h"
@@ -37,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
             qApp->desktop()->availableGeometry()
         )
     );
+    this->ui->pushButton->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -75,4 +77,10 @@ void MainWindow::on_btnInfo_clicked()
     dlgInfo.exec();
     this->setVisible(true);
     std::cout << "comeback" << std::endl;
+}
+
+void MainWindow::on_btnGuide_clicked()
+{
+    QString fitmodelPath = QDir::cleanPath(QCoreApplication::applicationDirPath() + QDir::separator() + "guide.html");
+    QDesktopServices::openUrl(QUrl(fitmodelPath));
 }

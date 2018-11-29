@@ -21,6 +21,8 @@ private slots:
 
     void on_btnInfo_clicked();
 
+    void on_btnGuide_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

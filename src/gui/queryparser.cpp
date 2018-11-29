@@ -62,6 +62,7 @@ void QueryParser::Parse(std::vector<int> *positions)
     else {
         QMessageBox msgBox;
         msgBox.setText("Unrecognized query!");
+        msgBox.setIcon(QMessageBox::Warning);
         msgBox.exec();
     }
 }
