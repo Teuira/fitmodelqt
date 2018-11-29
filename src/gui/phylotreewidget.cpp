@@ -94,9 +94,6 @@ void PhyloTreeWidget::SetForest(std::vector<FitModelTreeWrapper *> *forest) {
 
 void PhyloTreeWidget::mousePressEvent(QMouseEvent *event)
 {
-    this->btnSelectWholeTree->setStyleSheet(QString("QPushButton {"
-                                                "background-color: transparent"
-                                                "}"));
     if (event->pos().y() > this->height() - 20) {
         std::cout << "pressed for browse" << std::endl;
         // x:w = i=t
@@ -128,9 +125,10 @@ void PhyloTreeWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     std::cout << "released" << std::endl;
     this->mousePressed = false;
-
     // refresh
     update();
+    repaint();
+    std::cout << "Selected nodes: " << this->selNodes.size() << std::endl;
 }
 
 void PhyloTreeWidget::paintEvent(QPaintEvent *)
@@ -206,13 +204,18 @@ void PhyloTreeWidget::handleNext()
 
 void PhyloTreeWidget::handleSelWhole()
 {
+    // Resets selection rectangle.
+    this->rcSelection.setTopLeft(QPoint(-1, -1));
+    this->rcSelection.setBottomRight(QPoint(-1, -1));
+
     std::cout << "Add whole tree" << std::endl;
     this->selNodes.clear();
     TraversalAdd(this->currTree->GetRoot(), this->currTree->GetTree());
     std::cout << "Selected nodes: " << this->selNodes.size() << std::endl;
-    this->btnSelectWholeTree->setStyleSheet(QString("QPushButton {"
-                                                "background-color: yellow"
-                                                "}"));
+    QMessageBox msgBox;
+    msgBox.setText("Whole tree selected.");
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.exec();
     update();
 }
 
@@ -221,14 +224,10 @@ void PhyloTreeWidget::handleQuery()
     std::string query = this->lineQuery->text().toStdString();
     std::cout << "Query: " << query << std::endl;
     QueryParser *parser = nullptr;
+    // "" is a special reset query.
     if (query == "") {
         this->positions->clear();
         this->listPos->clear();
-        /*
-        QMessageBox msgBox;
-        msgBox.setText("Enter a query first.");
-        msgBox.exec();
-        */
         this->repaint();
         return;
     }
@@ -244,6 +243,7 @@ void PhyloTreeWidget::handleQuery()
         */
         QMessageBox msgBox;
         msgBox.setText("Select some nodes first.");
+        msgBox.setIcon(QMessageBox::Information);
         msgBox.exec();
     } else {
         std::vector<std::vector<node *> *> *nodesOfForest = new std::vector<std::vector<node *> *>;
@@ -292,6 +292,7 @@ void PhyloTreeWidget::handleSnapshot()
         this->grab().save(fileName);
         QMessageBox msgBox;
         msgBox.setText("Image saved!");
+        msgBox.setIcon(QMessageBox::Information);
         msgBox.exec();
     }
 }
@@ -352,6 +353,7 @@ void PhyloTreeWidget::handleReport()
         // End of report.
         QMessageBox msgBox;
         msgBox.setText("Report saved!");
+        msgBox.setIcon(QMessageBox::Information);
         msgBox.exec();
         // Opens file.
         QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
