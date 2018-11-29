@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>442</width>
     <height>240</height>
    </rect>
   </property>
@@ -47,6 +47,24 @@
    </property>
    <property name="text">
     <string>A GUI for FitModel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>381</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Based on fitmodel by Stephane Guindon</string>
    </property>
   </widget>
  </widget>

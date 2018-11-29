@@ -12,11 +12,12 @@ DialogTreeSelector::DialogTreeSelector(QWidget *parent) :
     ui(new Ui::DialogTreeSelector)
 {
     ui->setupUi(this);
-    // Sets background to white.
-    QPalette pal = palette();
-    pal.setColor(QPalette::Background, Qt::white);
-    this->setAutoFillBackground(true);
-    this->setPalette(pal);
+    // Sets background image
+    QPixmap bkgnd(":/assets/WbestSelectionScreenBack.png");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
     this->show();
 }
 

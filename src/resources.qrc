@@ -11,5 +11,7 @@
         <file>assets/HasBlue.png</file>
         <file>assets/HasGreen.png</file>
         <file>assets/HasRed.png</file>
+        <file>assets/WbestSelectionScreenBack.png</file>
+        <file>assets/StatsSelectionScreenBack.png</file>
     </qresource>
 </RCC>

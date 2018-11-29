@@ -13,11 +13,12 @@ DialogStatsSelector::DialogStatsSelector(QString treePath, QWidget *parent) :
 {
     ui->setupUi(this);
     this->strTreePath = treePath;
-    // Sets background to white.
-    QPalette pal = palette();
-    pal.setColor(QPalette::Background, Qt::white);
-    this->setAutoFillBackground(true);
-    this->setPalette(pal);
+    // Sets background image
+    QPixmap bkgnd(":/assets/StatsSelectionScreenBack.png");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
     this->show();
 }
 
