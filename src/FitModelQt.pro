@@ -58,7 +58,6 @@ HEADERS += \
     gui/mainwindow.h \
     gui/phylotreewidget.h \
     gui/queryparser.h \
-    gui/tree.h \
     gui/dialogtreeselector.h \
     gui/dialogstatsselector.h
 
@@ -72,7 +71,6 @@ SOURCES += \
     gui/mainwindow.cpp \
     gui/phylotreewidget.cpp \
     gui/queryparser.cpp \
-    gui/tree.cpp \
     fitmodel/draw.c \
     fitmodel/eigen.c \
     fitmodel/eigenmb.c \

@@ -136,12 +136,17 @@ void PhyloTreeWidget::paintEvent(QPaintEvent *)
     this->btnQuery->setGeometry(this->width() - 100, 0, 100, 30);
     this->lineQuery->setGeometry(440, 0, this->width() - 680, 30);
     this->btnSnippets->setGeometry(this->lineQuery->width() + 460, 0, 100, 30);
-    this->listPos->setGeometry(TREE_VISUAL_WIDTH, BAR_HEIGHT, this->width() - TREE_VISUAL_WIDTH, this->height() - BAR_HEIGHT - 80);
+    this->listPos->setGeometry(TREE_VISUAL_WIDTH, BAR_HEIGHT + 50.0, this->width() - TREE_VISUAL_WIDTH, this->height() - BAR_HEIGHT - 130);
     this->btnReport->setGeometry(this->listPos->geometry().x(), this->listPos->geometry().y() + this->listPos->geometry().height() + 10, this->listPos->geometry().width(), 30);
     QPainter painter(this);
     if (this->mousePressed) {
         painter.drawRect(this->rcSelection);
     }
+    // Draws bars
+    painter.fillRect(QRectF(TREE_VISUAL_WIDTH, 0, this->width() - TREE_VISUAL_WIDTH, this->height()), QColor(0, 32, 96));
+    painter.fillRect(QRectF(0.0, 0.0, this->width(), 32), QColor(79, 129, 189));
+    painter.fillRect(QRectF(0.0, this->height() - 20, this->width(), 20), QColor(79, 129, 189));
+    // End Draw bars
     if(this->currTree != nullptr) {
         QFont font = painter.font();
         int fontSize = (int)((double)this->currTree->GetDrawStruct()->page_height / (double)this->currTree->GetTree()->n_otu);
