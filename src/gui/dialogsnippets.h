@@ -25,7 +25,8 @@ private slots:
     void on_btnHasBlue_clicked();
     void on_btnGreenToBlue_clicked();
     void on_btnRedToGreen_clicked();
-    void on_btnRedToBlue_clicked();
+
+    void on_btnClear_clicked();
 
 private:
     Ui::DialogSnippets *ui;

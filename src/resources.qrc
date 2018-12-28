@@ -13,5 +13,6 @@
         <file>assets/HasRed.png</file>
         <file>assets/WbestSelectionScreenBack.png</file>
         <file>assets/StatsSelectionScreenBack.png</file>
+        <file>assets/Clear.png</file>
     </qresource>
 </RCC>

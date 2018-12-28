@@ -29,8 +29,8 @@ DialogSnippets::DialogSnippets(QWidget *parent) :
     ui->btnGreenToBlue->setToolTip("w2 to w1");
     ui->btnRedToGreen->setStyleSheet("background-image:url(:/assets/RedToGreen.png)");
     ui->btnRedToGreen->setToolTip("w3 to w2");
-    ui->btnRedToBlue->setStyleSheet("background-image:url(:/assets/RedToBlue.png)");
-    ui->btnRedToBlue->setToolTip("w3 to w1");
+    ui->btnClear->setStyleSheet("background-image:url(:/assets/Clear.png)");
+    ui->btnClear->setToolTip("Clear");
 }
 
 DialogSnippets::~DialogSnippets()
@@ -86,8 +86,8 @@ void DialogSnippets::on_btnRedToGreen_clicked()
     this->accept();
 }
 
-void DialogSnippets::on_btnRedToBlue_clicked()
+void DialogSnippets::on_btnClear_clicked()
 {
-    this->snippet = "from w3 to w1";
+    this->snippet = "";
     this->accept();
 }

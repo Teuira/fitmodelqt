@@ -398,8 +398,12 @@ void PhyloTreeWidget::handleSnippets()
     std::cout << "Snippets requested" << std::endl;
     DialogSnippets dlgSnippets;
     dlgSnippets.setModal(true);
-    dlgSnippets.exec();
-    this->lineQuery->setText(QString::fromStdString(dlgSnippets.snippet));
+    if (dlgSnippets.exec() == QDialog::DialogCode::Accepted) {
+        this->lineQuery->setText(QString::fromStdString(dlgSnippets.snippet));
+        if (dlgSnippets.snippet == "") {
+            handleQuery();
+        }
+    }
     std::cout << "comeback to viewer" << std::endl;
 }
 
