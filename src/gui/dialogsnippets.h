@@ -23,8 +23,8 @@ private slots:
     void on_btnHasRed_clicked();
     void on_btnHasGreen_clicked();
     void on_btnHasBlue_clicked();
-    void on_btnGreenToBlue_clicked();
-    void on_btnRedToGreen_clicked();
+    void on_btnWxToWy_clicked();
+    void on_btnWxyToWz_clicked();
 
     void on_btnClear_clicked();
 

@@ -3,6 +3,12 @@
 
 #include <iostream>
 
+/*
+ * W3 = RED
+ * W2 = GREEN
+ * W1 = BLUE
+ */
+
 DialogSnippets::DialogSnippets(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogSnippets)
@@ -25,10 +31,10 @@ DialogSnippets::DialogSnippets(QWidget *parent) :
     ui->btnHasBlue->setStyleSheet("background-image:url(:/assets/HasBlue.png)");
     ui->btnHasBlue->setToolTip("Checks if tree has w1");
     // Third column of buttons.
-    ui->btnGreenToBlue->setStyleSheet("background-image:url(:/assets/GreenToBlue.png)");
-    ui->btnGreenToBlue->setToolTip("w2 to w1");
-    ui->btnRedToGreen->setStyleSheet("background-image:url(:/assets/RedToGreen.png)");
-    ui->btnRedToGreen->setToolTip("w3 to w2");
+    ui->btnWxToWy->setStyleSheet("background-image:url(:/assets/GreenToBlue.png)");
+    ui->btnWxToWy->setToolTip("Wx to Wy");
+    ui->btnWxyToWz->setStyleSheet("background-image:url(:/assets/RedToGreen.png)");
+    ui->btnWxyToWz->setToolTip("Wx or Wy to Wz");
     ui->btnClear->setStyleSheet("background-image:url(:/assets/Clear.png)");
     ui->btnClear->setToolTip("Clear");
 }
@@ -74,15 +80,15 @@ void DialogSnippets::on_btnHasBlue_clicked()
     this->accept();
 }
 
-void DialogSnippets::on_btnGreenToBlue_clicked()
+void DialogSnippets::on_btnWxToWy_clicked()
 {
     this->snippet = "from w2 to w1";
     this->accept();
 }
 
-void DialogSnippets::on_btnRedToGreen_clicked()
+void DialogSnippets::on_btnWxyToWz_clicked()
 {
-    this->snippet = "from w3 to w2";
+    this->snippet = "from w1 or w2 to w3";
     this->accept();
 }
 

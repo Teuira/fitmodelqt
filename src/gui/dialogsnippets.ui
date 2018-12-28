@@ -52,7 +52,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QToolButton" name="btnGreenToBlue">
+  <widget class="QToolButton" name="btnWxToWy">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -78,7 +78,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QToolButton" name="btnRedToGreen">
+  <widget class="QToolButton" name="btnWxyToWz">
    <property name="geometry">
     <rect>
      <x>540</x>

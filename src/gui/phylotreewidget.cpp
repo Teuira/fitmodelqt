@@ -2,16 +2,15 @@
 #include "queryparser.h"
 #include "dialogsnippets.h"
 #include "msgboxes.h"
+#include "reporter.h"
 
 #include <algorithm>
-#include <fstream>
 #include <iostream>
 
 #include <QPainter>
 #include <QPushButton>
 #include <QApplication>
 #include <QFileDialog>
-#include <QPdfWriter>
 #include <QDate>
 #include <QDesktopServices>
 
@@ -482,6 +481,9 @@ void PhyloTreeWidget::handleSnapshot()
     }
 }
 
+//!
+//! \brief PhyloTreeWidget::handleReport
+//!
 void PhyloTreeWidget::handleReport()
 {
     std::cout << "Report requested" << std::endl;
@@ -490,51 +492,8 @@ void PhyloTreeWidget::handleReport()
     if (!fileName.endsWith(".pdf"))
         fileName += ".pdf";
     if (fileName != "") {
-        QPdfWriter pdfwriter(fileName);
-        pdfwriter.setPageSize(QPageSize(QPageSize::A4));
-        QPainter painter(&pdfwriter);
-        QString line = "File name: ";
-        line += this->name;
-        painter.drawText(20, 10, line);
-        line = "Date: ";
-        QDate dat = QDate::currentDate();
-        line += dat.toString();
-        painter.drawText(20, 200, line);
-        line = "Query: ";
-        painter.scale(2.0, 2.0);
-        line += this->lineQuery->text() == "" ? "No query" : this->lineQuery->text();
-        painter.drawText(20, 400, line);
-        line = "Match count: ";
-        line.append(QString::fromStdString(std::to_string(this->positions->size())));
-        painter.drawText(20, 600, line);
-        line = "Total positions: ";
-        line.append(QString::fromStdString(std::to_string(this->forest->size())));
-        painter.drawText(20, 800, line);
-        // Draws the image.
-        painter.scale(5, 5);
-        QPixmap img = this->grab(QRect(0, BAR_HEIGHT, 800, 700));
-        painter.drawImage(50, 300, img.toImage());
-        // Appends report if present.
-        if (this->statsPath == "") {
-            std::cout << "No report";
-        } else {
-            painter.scale(0.1, 0.1);
-            int statsYPos = 10500;
-            painter.drawText(20, statsYPos, "Statistics:");
-            statsYPos += 50;
-            std::ifstream infile(this->statsPath.toStdString());
-            std::string line;
-            int i = 1;
-            while (std::getline(infile, line))
-            {
-                statsYPos += 100;
-                painter.drawText(20, statsYPos, QString::fromStdString(line));
-                if (i > 25) {
-                    break;
-                }
-                i += 1;
-            }
-        }
+        Reporter rep(this->name, this->statsPath, this->forest, this->listPosSave);
+        rep.save(fileName);
         // End of report.
         infoBox("Report saved!");
         // Opens file.
@@ -559,6 +518,13 @@ void PhyloTreeWidget::handleListPosClicked(QListWidgetItem *item)
     this->update();
 }
 
+//!
+//! \brief PhyloTreeWidget::Print_Tree_Qt
+//! \param pnt
+//! \param b_root
+//! \param w
+//! \param tree
+//!
 void PhyloTreeWidget::Print_Tree_Qt(QPainter *pnt, edge *b_root, tdraw *w, arbre *tree)
 {
     int i;

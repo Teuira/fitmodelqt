@@ -60,7 +60,8 @@ HEADERS += \
     gui/queryparser.h \
     gui/dialogtreeselector.h \
     gui/dialogstatsselector.h \
-    gui/msgboxes.h
+    gui/msgboxes.h \
+    gui/reporter.h
 
 SOURCES += \
     gui/dialoginfo.cpp \
@@ -84,7 +85,8 @@ SOURCES += \
     fitmodel/utilities.c \
     gui/dialogtreeselector.cpp \
     gui/dialogstatsselector.cpp \
-    gui/msgboxes.cpp
+    gui/msgboxes.cpp \
+    gui/reporter.cpp
 
 RESOURCES += \
     resources.qrc
