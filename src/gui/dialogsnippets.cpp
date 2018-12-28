@@ -9,6 +9,7 @@ DialogSnippets::DialogSnippets(QWidget *parent) :
 {
     ui->setupUi(this);
     this->snippet = "";
+    this->setStyleSheet("background-color:black;");
     // First column of buttons.
     ui->btnEq->setStyleSheet("background-image:url(:/assets/Eq.png)");
     ui->btnEq->setToolTip("Equality test");

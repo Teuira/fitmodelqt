@@ -1,6 +1,7 @@
 #include "phylotreewidget.h"
 #include "queryparser.h"
 #include "dialogsnippets.h"
+#include "msgboxes.h"
 
 #include <algorithm>
 #include <fstream>
@@ -9,17 +10,37 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QApplication>
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QPdfWriter>
 #include <QDate>
 #include <QDesktopServices>
 
+/*
+ * START OF GLOBAL CONSTANTS.
+ */
 #define BAR_HEIGHT 40
 #define TREE_VISUAL_WIDTH 800
 #define TREE_VISUAL_HEIGHT 750
 #define LABEL_X_OFFSET 10
+#define LST_QUERY_X TREE_VISUAL_WIDTH
+#define WIDGET_W (this->width())
+#define RIGHT_BAR_W (WIDGET_W - TREE_VISUAL_W)
 
+/*
+ * END OF GLOBAL CONSTANTS;
+ */
+
+//**************************************************************************
+//                          PUBLIC FUNCTIONS START
+//**************************************************************************
+
+//!
+//! \brief InSel Checks if a point is in a selection rectangle.
+//! \param x The x coord of the point to check.
+//! \param y The y coord of the point to check.
+//! \param rcSel The selection rectangle.
+//! \return true if the point (x, y) is in the selection rectangle.
+//!
 static inline bool InSel(double x, double y, QRectF *rcSel) {
     qreal l, t, r, b;
     if (rcSel->width() < 0) {
@@ -37,14 +58,22 @@ static inline bool InSel(double x, double y, QRectF *rcSel) {
         b = rcSel->bottom();
     }
     if (x > l && x < r && y > t && y < b) {
-        //std::cout << "true" << std::endl;
         return true;
     }
     return false;
 }
 
+//!
+//! \brief PhyloTreeWidget::PhyloTreeWidget
+//! \param parent The parent widget
+//! \details This is the constructor for the widget.
+//! All widget creation and other initialisations are here.
+//!
 PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
 {
+    /*
+     * CONTROL CREATION START.
+     */
     this->currTree = nullptr;
     this->prev = new QPushButton("<", this);
     this->next = new QPushButton(">", this);
@@ -52,25 +81,56 @@ PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
     this->btnQuery = new QPushButton("Query", this);
     this->btnSnippets = new QPushButton("Snippets", this);
     this->lineQuery = new QLineEdit(this);
+    this->lblQueryResList = new QLabel("Positions mathing the query:", this);
+    this->lblQueryResList->setStyleSheet("QLabel { color : white; }");
     this->listPos = new QListWidget(this);
+    this->lblSaveList = new QLabel("Positions to save: ", this);
+    this->btnAddPos = new QPushButton("Add", this);
+    this->btnRemovePos = new QPushButton("Remove", this);
+    this->lblSaveList->setStyleSheet("QLabel { color : white; }");
+    this->linePos = new QLineEdit(this);
+    this->listPosSave = new QListWidget(this);
     this->btnSnapshot = new QPushButton("Snapshot", this);
     this->btnReport = new QPushButton("Save Report", this);
+    /*
+     * CONTROL CREATION END.
+     */
+    /*
+     * EVENT CONNECTION START.
+     */
     connect(prev, SIGNAL (released()), this, SLOT (handlePrevious()));
     connect(next, SIGNAL (released()), this, SLOT (handleNext()));
     connect(btnSelectWholeTree, SIGNAL (released()), this, SLOT (handleSelWhole()));
     connect(btnQuery, SIGNAL (released()), this, SLOT (handleQuery()));
     connect(btnSnippets, SIGNAL (released()), this, SLOT (handleSnippets()));
     connect(btnSnapshot, SIGNAL (released()), this, SLOT (handleSnapshot()));
+    connect(btnAddPos, SIGNAL (released()), this, SLOT (handleAddPos()));
+    connect(btnRemovePos, SIGNAL (released()), this, SLOT (handleRemovePos()));
     connect(btnReport, SIGNAL (released()), this, SLOT (handleReport()));
     connect(this->listPos, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(handleListPosClicked(QListWidgetItem*)));
+    connect(this->listPosSave, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(handleListPosClicked(QListWidgetItem*)));
+    /*
+     * EVENT CONNECTION END.
+     */
+    /*
+     * INIT TREE VARS.
+     */
     this->prev->setGeometry(120, 0, 30, 30);
     this->next->setGeometry(150, 0, 30, 30);
     this->btnSelectWholeTree->setGeometry(200, 0, 100, 30);
     this->btnSnapshot->setGeometry(320, 0, 100, 30);
     this->positions = new std::vector<int>;
+    /*
+     * END INIT TREE VARS.
+     */
 }
 
+//!
+//! \brief PhyloTreeWidget::~PhyloTreeWidget
+//! \details Destructor for the widget. All the controls created in the constructor are deleted.
+//!
 PhyloTreeWidget::~PhyloTreeWidget()
 {
     delete this->prev;
@@ -78,13 +138,24 @@ PhyloTreeWidget::~PhyloTreeWidget()
     delete this->btnSelectWholeTree;
     delete this->btnQuery;
     delete this->btnSnippets;
+    delete this->btnAddPos;
+    delete this->btnRemovePos;
     delete this->lineQuery;
+    delete this->lblQueryResList;
     delete this->listPos;
+    delete this->lblSaveList;
+    delete this->linePos;
+    delete this->listPosSave;
     delete this->btnSnapshot;
     delete this->positions;
     delete this->btnReport;
 }
 
+//!
+//! \brief PhyloTreeWidget::SetForest
+//! \details public method used to set the list of trees for this session.
+//! \param forest The list of trees taken from FitModel.
+//!
 void PhyloTreeWidget::SetForest(std::vector<FitModelTreeWrapper *> *forest) {
     this->forest = forest;
     this->currIndex = 0;
@@ -92,6 +163,14 @@ void PhyloTreeWidget::SetForest(std::vector<FitModelTreeWrapper *> *forest) {
     this->repaint();
 }
 
+//**************************************************************************
+//                          PUBLIC FUNCTIONS END
+//**************************************************************************
+
+//!
+//! \brief PhyloTreeWidget::mousePressEvent
+//! \param event
+//!
 void PhyloTreeWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->pos().y() > this->height() - 20) {
@@ -112,6 +191,11 @@ void PhyloTreeWidget::mousePressEvent(QMouseEvent *event)
     std::cout << event->pos().x() << std::endl;
 }
 
+//!
+//! \brief PhyloTreeWidget::mouseMoveEvent
+//! \details When mouse moves it updates the size of the selection rectangle.
+//! \param event
+//!
 void PhyloTreeWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->type() == QEvent::MouseMove)
@@ -121,7 +205,11 @@ void PhyloTreeWidget::mouseMoveEvent(QMouseEvent *event)
     update();
 }
 
-void PhyloTreeWidget::mouseReleaseEvent(QMouseEvent *event)
+//!
+//! \brief PhyloTreeWidget::mouseReleaseEvent
+//! \details On mouse released refresh and prints selected nodes.
+//!
+void PhyloTreeWidget::mouseReleaseEvent(QMouseEvent *)
 {
     std::cout << "released" << std::endl;
     this->mousePressed = false;
@@ -131,22 +219,56 @@ void PhyloTreeWidget::mouseReleaseEvent(QMouseEvent *event)
     std::cout << "Selected nodes: " << this->selNodes.size() << std::endl;
 }
 
+//!
+//! \brief PhyloTreeWidget::paintEvent
+//! \details All of the painting events and widget resising happens here.
+//!
 void PhyloTreeWidget::paintEvent(QPaintEvent *)
 {
-    this->btnQuery->setGeometry(this->width() - 100, 0, 100, 30);
-    this->lineQuery->setGeometry(440, 0, this->width() - 680, 30);
-    this->btnSnippets->setGeometry(this->lineQuery->width() + 460, 0, 100, 30);
-    this->listPos->setGeometry(TREE_VISUAL_WIDTH, BAR_HEIGHT + 50.0, this->width() - TREE_VISUAL_WIDTH, this->height() - BAR_HEIGHT - 130);
-    this->btnReport->setGeometry(this->listPos->geometry().x(), this->listPos->geometry().y() + this->listPos->geometry().height() + 10, this->listPos->geometry().width(), 30);
+    /*
+     * SETS GEOMETRY FOR THE WIDGETS.
+     */
+    this->btnQuery->setGeometry(this->width() - 100, 0,
+                                100, 30);
+    this->lineQuery->setGeometry(440, 0,
+                                 WIDGET_W - 680, 30);
+    this->btnSnippets->setGeometry(this->lineQuery->width() + 460, 0,
+                                   100, 30);
+    this->lblQueryResList->setGeometry(LST_QUERY_X, BAR_HEIGHT + 10,
+                                       150, 30);
+    this->listPos->setGeometry(LST_QUERY_X, BAR_HEIGHT + 50, this->width() - TREE_VISUAL_WIDTH,
+                               this->height() - BAR_HEIGHT - 500);
+    this->lblSaveList->setGeometry(LST_QUERY_X, BAR_HEIGHT + 60 + this->listPos->height(),
+                                   150, 30);
+    this->listPosSave->setGeometry(LST_QUERY_X, this->lblSaveList->geometry().y() + 100,
+                                   this->width() - TREE_VISUAL_WIDTH, this->height() - lblSaveList->geometry().y()-200);
+    this->btnReport->setGeometry(LST_QUERY_X, this->height() - 80,
+                                 this->listPos->geometry().width(), 30);
+    int posEditY = this->lblSaveList->geometry().y() + 40;
+    this->linePos->setGeometry(LST_QUERY_X + 2, posEditY,
+                               WIDGET_W - TREE_VISUAL_WIDTH - 140, 30);
+    this->btnAddPos->setGeometry(LST_QUERY_X + this->linePos->geometry().width() + 10, posEditY,
+                                 60, 30);
+    this->btnRemovePos->setGeometry(this->btnAddPos->geometry().x() + 70, posEditY,
+                                 60, 30);
+    /*
+     * END SETTING GEOMETRY.
+     */
     QPainter painter(this);
+    /*
+    * START DRAWING BACKGROUND.
+    */
+    painter.fillRect(QRectF(0.0, 0.0, this->width(), this->height()), QColor(0,0,0));
+    painter.fillRect(QRectF(TREE_VISUAL_WIDTH, 0, this->width() - TREE_VISUAL_WIDTH, this->height()), QColor(0, 32, 96));
+    painter.fillRect(QRectF(0.0, 0.0, this->width(), 31), QColor(79, 129, 189));
+    painter.fillRect(QRectF(0.0, this->height() - 20, this->width(), 20), QColor(79, 129, 189));
+    /*
+     * END DRAWING BACKGROUND.
+     */
     if (this->mousePressed) {
+        painter.setPen(Qt::white);
         painter.drawRect(this->rcSelection);
     }
-    // Draws bars
-    painter.fillRect(QRectF(TREE_VISUAL_WIDTH, 0, this->width() - TREE_VISUAL_WIDTH, this->height()), QColor(0, 32, 96));
-    painter.fillRect(QRectF(0.0, 0.0, this->width(), 32), QColor(79, 129, 189));
-    painter.fillRect(QRectF(0.0, this->height() - 20, this->width(), 20), QColor(79, 129, 189));
-    // End Draw bars
     if(this->currTree != nullptr) {
         QFont font = painter.font();
         int fontSize = (int)((double)this->currTree->GetDrawStruct()->page_height / (double)this->currTree->GetTree()->n_otu);
@@ -172,8 +294,11 @@ void PhyloTreeWidget::paintEvent(QPaintEvent *)
         painter.drawRect(rectTreeName);
         painter.drawText(rectTreeName, Qt::AlignCenter, QString::fromStdString(this->currTree->GetName()));
     }
+    /*
+     * START DRAWING BOTTOM CURSOR.
+     */
     painter.drawLine(0, this->height() - 10, this->width(), this->height() - 10);
-    painter.setPen(Qt::blue);
+    painter.setPen(Qt::white);
     // x:w=c:nt
     if (this->positions) {
         if (!this->positions->empty()){
@@ -185,6 +310,9 @@ void PhyloTreeWidget::paintEvent(QPaintEvent *)
     }
     painter.setBrush(QBrush(Qt::transparent));
     painter.drawEllipse(this->width() * (qreal)this->currIndex / (qreal)this->forest->size() - 7, this->height() - 10 - 7, 14, 14);
+    /*
+     * END DRAWING BOTTOM CURSOR.
+     */
 }
 
 void PhyloTreeWidget::handlePrevious()
@@ -217,10 +345,7 @@ void PhyloTreeWidget::handleSelWhole()
     this->selNodes.clear();
     TraversalAdd(this->currTree->GetRoot(), this->currTree->GetTree());
     std::cout << "Selected nodes: " << this->selNodes.size() << std::endl;
-    QMessageBox msgBox;
-    msgBox.setText("Whole tree selected.");
-    msgBox.setIcon(QMessageBox::Information);
-    msgBox.exec();
+    infoBox("Whole tree selected.");
     update();
 }
 
@@ -237,19 +362,7 @@ void PhyloTreeWidget::handleQuery()
         return;
     }
     if (this->selNodes.empty()) {
-        /*
-        std::vector<edge *> *rootsOfForest = new std::vector<edge *>;
-        for (size_t i = 0; i < this->forest->size(); i++) {
-            rootsOfForest->push_back(this->forest->at(i)->GetRoot());
-        }
-        parser = new QueryParser(query, rootsOfForest);
-        parser->Parse();
-        delete rootsOfForest;
-        */
-        QMessageBox msgBox;
-        msgBox.setText("Select some nodes first.");
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.exec();
+        infoBox("Select some nodes first.");
     } else {
         std::vector<std::vector<node *> *> *nodesOfForest = new std::vector<std::vector<node *> *>;
         for (size_t i = 0; i < this->forest->size(); i++) {
@@ -276,6 +389,10 @@ void PhyloTreeWidget::handleQuery()
     this->repaint();
 }
 
+//!
+//! \brief PhyloTreeWidget::handleSnippets
+//! \details Opens the snippets window.
+//!
 void PhyloTreeWidget::handleSnippets()
 {
     std::cout << "Snippets requested" << std::endl;
@@ -286,6 +403,68 @@ void PhyloTreeWidget::handleSnippets()
     std::cout << "comeback to viewer" << std::endl;
 }
 
+//!
+//! \brief PhyloTreeWidget::handleAddPos
+//! \details Adds a position to the save list only if the position is not empty
+//! and if the position isn't already in the list.
+//!
+void PhyloTreeWidget::handleAddPos()
+{
+    QString itm = linePos->text();
+    if (itm.isEmpty()) {
+        warningBox("Enter a position first!");
+        return;
+    }
+    bool ok;
+    int pos = itm.toInt(&ok, 10);
+    if (!ok) {
+        warningBox("Enter a valid position!");
+        return;
+    }
+    if (pos < 1 || pos > this->forest->size()) {
+        warningBox("Enter a valid position!");
+        this->linePos->clear();
+        return;
+    }
+    for (int i = 0; i < this->listPosSave->count(); ++i)
+    {
+        QListWidgetItem* currItem = this->listPosSave->item(i);
+        if (currItem->text() == itm) {
+            infoBox("This position is already in the save list!");
+            return;
+        }
+    }
+    this->listPosSave->addItem(itm);
+    this->linePos->clear();
+}
+
+//!
+//! \brief PhyloTreeWidget::handleRemovePos
+//! \details Removes a position from the save list.
+//!
+void PhyloTreeWidget::handleRemovePos()
+{
+    QString itm = linePos->text();
+    if (itm.isEmpty()) {
+        warningBox("Enter a position first!");
+        return;
+    }
+    for (int i = 0; i < this->listPosSave->count(); ++i)
+    {
+        QListWidgetItem* currItem = this->listPosSave->item(i);
+        if (currItem->text() == itm) {
+            delete currItem;
+            this->linePos->clear();
+            return;
+        }
+    }
+    warningBox("This position is not in the save list!");
+}
+
+//!
+//! \brief PhyloTreeWidget::handleSnapshot
+//! \details Takes a snapshot of the current window and asks the user where to save it.
+//!
 void PhyloTreeWidget::handleSnapshot()
 {
     std::cout << "Snapshot requested" << std::endl;
@@ -295,10 +474,7 @@ void PhyloTreeWidget::handleSnapshot()
         fileName += ".png";
     if (fileName != ".png") {
         this->grab().save(fileName);
-        QMessageBox msgBox;
-        msgBox.setText("Image saved!");
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.exec();
+        infoBox("Image saved!");
     }
 }
 
@@ -356,15 +532,17 @@ void PhyloTreeWidget::handleReport()
             }
         }
         // End of report.
-        QMessageBox msgBox;
-        msgBox.setText("Report saved!");
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.exec();
+        infoBox("Report saved!");
         // Opens file.
         QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
     }
 }
 
+//!
+//! \brief PhyloTreeWidget::handleListPosClicked On position clicked.
+//! \details On click goes to the selected position.
+//! \param item The selected item.
+//!
 void PhyloTreeWidget::handleListPosClicked(QListWidgetItem *item)
 {
     QString sel = item->text();
@@ -372,6 +550,7 @@ void PhyloTreeWidget::handleListPosClicked(QListWidgetItem *item)
     int pos = sel.toInt() - 1;
     this->currIndex = pos;
     this->currTree = this->forest->at((size_t)this->currIndex);
+    this->linePos->setText(sel);
 
     this->update();
 }

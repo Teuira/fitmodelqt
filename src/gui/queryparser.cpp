@@ -1,6 +1,5 @@
 #include "queryparser.h"
-
-#include <QMessageBox>
+#include "msgboxes.h"
 
 QueryParser::QueryParser(std::string query, std::vector<std::vector<node *> *> *nodes, size_t currTreeIndex)
 {
@@ -60,10 +59,7 @@ void QueryParser::Parse(std::vector<int> *positions)
         FromXToY(positions, 1.0, 0.5);
     }
     else {
-        QMessageBox msgBox;
-        msgBox.setText("Unrecognized query!");
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.exec();
+        warningBox("Unrecognized query!");
     }
 }
 

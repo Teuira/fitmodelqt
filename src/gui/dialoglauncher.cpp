@@ -1,11 +1,11 @@
 #include "dialoglauncher.h"
 #include "ui_dialoglauncher.h"
+#include "msgboxes.h"
 
 #include <fstream>
 #include <iostream>
 
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QProcess>
 
 #define PRINT_DEBUG
@@ -65,10 +65,7 @@ void DialogLauncher::on_bntRun_clicked()
     std::cout << fitmodelPath.toStdString() << std::endl;
 #endif
     if (ui->leditTree->text().isEmpty() || ui->leditSeq->text().isEmpty()) {
-        QMessageBox msgBox;
-        msgBox.setText("There are some missing fields!");
-        msgBox.setIcon(QMessageBox::Information);
-        msgBox.exec();
+        infoBox("There are some missing fields!");
         return;
     }
     QFileInfo pathInfo(fitmodelPath);
@@ -89,9 +86,6 @@ void DialogLauncher::on_bntRun_clicked()
         proc->startDetached("cmd.exe");
     } else {
         // fitmodel not found.
-        QMessageBox msgBox;
-        msgBox.setText("fitmodel not found.");
-        msgBox.setIcon(QMessageBox::Critical);
-        msgBox.exec();
+        errorBox("fitmodel not found.");
     }
 }

@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include <QFileDialog>
-#include <QMessageBox>
 
 DialogStatsSelector::DialogStatsSelector(QString treePath, QWidget *parent) :
     QDialog(parent),
@@ -13,6 +12,7 @@ DialogStatsSelector::DialogStatsSelector(QString treePath, QWidget *parent) :
 {
     ui->setupUi(this);
     this->strTreePath = treePath;
+    ui->lblStatsHeader->setStyleSheet("QLabel { color : white; }");
     // Sets background image
     QPixmap bkgnd(":/assets/StatsSelectionScreenBack.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);

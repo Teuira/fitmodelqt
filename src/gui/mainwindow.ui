@@ -67,7 +67,6 @@
     </property>
    </widget>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew_Session">
    <property name="text">
     <string>New Session</string>

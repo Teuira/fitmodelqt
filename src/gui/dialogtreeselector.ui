@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>441</width>
-     <height>91</height>
+     <height>70</height>
     </rect>
    </property>
    <property name="font">
@@ -54,19 +54,6 @@
     <string>Browse</string>
    </property>
   </widget>
-  <widget class="QCommandLinkButton" name="btnNext">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>430</y>
-     <width>172</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Next</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="lblFileInfo">
    <property name="geometry">
     <rect>
@@ -78,6 +65,19 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnNext">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>430</y>
+     <width>70</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Next</string>
    </property>
   </widget>
  </widget>

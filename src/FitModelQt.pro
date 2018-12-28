@@ -59,7 +59,8 @@ HEADERS += \
     gui/phylotreewidget.h \
     gui/queryparser.h \
     gui/dialogtreeselector.h \
-    gui/dialogstatsselector.h
+    gui/dialogstatsselector.h \
+    gui/msgboxes.h
 
 SOURCES += \
     gui/dialoginfo.cpp \
@@ -82,7 +83,8 @@ SOURCES += \
     fitmodel/options.c \
     fitmodel/utilities.c \
     gui/dialogtreeselector.cpp \
-    gui/dialogstatsselector.cpp
+    gui/dialogstatsselector.cpp \
+    gui/msgboxes.cpp
 
 RESOURCES += \
     resources.qrc

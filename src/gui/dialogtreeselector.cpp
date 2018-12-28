@@ -1,17 +1,18 @@
 #include "dialogtreeselector.h"
 #include "ui_dialogtreeselector.h"
 #include "dialogstatsselector.h"
+#include "msgboxes.h"
 
 #include <iostream>
 
 #include <QFileDialog>
-#include <QMessageBox>
 
 DialogTreeSelector::DialogTreeSelector(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogTreeSelector)
 {
     ui->setupUi(this);
+    ui->lblTreeLoadHeader->setStyleSheet("QLabel { color : white; }");
     // Sets background image
     QPixmap bkgnd(":/assets/WbestSelectionScreenBack.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -43,10 +44,7 @@ void DialogTreeSelector::on_btnBrowseTree_clicked()
 void DialogTreeSelector::on_btnNext_clicked()
 {
     if (ui->leditTreePath->text() == "") {
-        QMessageBox msgBox;
-        msgBox.setText("Select a file first.");
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.exec();
+        warningBox("Select a file first.");
         return;
     }
     std::cout << "Tree path ok." << std::endl;

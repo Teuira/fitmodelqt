@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QStringListModel>
+#include <QLabel>
 
 //#include <tree.h>
 #include "fitmodeltreewrapper.h"
@@ -37,6 +38,8 @@ public slots:
     void handleQuery();
     void handleSnippets();
     void handleSnapshot();
+    void handleAddPos();
+    void handleRemovePos();
     void handleReport();
     void handleListPosClicked(QListWidgetItem *item);
 
@@ -47,8 +50,14 @@ private:
     QPushButton *btnQuery;
     QPushButton *btnSnippets;
     QPushButton *btnSnapshot;
+    QPushButton *btnAddPos;
+    QPushButton *btnRemovePos;
     QLineEdit *lineQuery;
+    QLabel *lblQueryResList;
     QListWidget *listPos;
+    QLabel *lblSaveList;
+    QLineEdit *linePos;
+    QListWidget *listPosSave;
     QPushButton *btnReport;
     QString name;
     QString statsPath;
