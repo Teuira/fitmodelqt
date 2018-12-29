@@ -1,6 +1,8 @@
 #include "queryparser.h"
 #include "msgboxes.h"
 
+#include <regex>
+
 QueryParser::QueryParser(std::string query, std::vector<std::vector<node *> *> *nodes, size_t currTreeIndex)
 {
     this->query = query;
@@ -16,6 +18,19 @@ QueryParser::QueryParser(std::string query, std::vector<edge *> *roots)
     this->nodes = nullptr;
     this->roots = roots;
     this->wholeTree = true;
+}
+
+double wToDouble(std::string w)
+{
+    if (w == "w1") {
+        return 0.0;
+    } else if (w == "w2") {
+        return 0.5;
+    } else if (w == "w3") {
+        return 1.0;
+    }
+
+    return -1.0;
 }
 
 void QueryParser::Parse(std::vector<int> *positions)
@@ -57,6 +72,37 @@ void QueryParser::Parse(std::vector<int> *positions)
     }
     else if (query.find("from w3 to w2") == 0) {
         FromXToY(positions, 1.0, 0.5);
+    }
+    else if (query.find("from") == 0
+             && query.find("or") != -1
+             && query.find("or") < query.find("to")) {
+        // from w1 or w2 to w3
+        std::regex r("from (w\\d) or (w\\d) to (w\\d)");
+        std::smatch m;
+        std::regex_search(query, m, r);
+        if (m.size() != 4) {
+            warningBox("Malformed query!");
+            return;
+        }
+        double wa, wb, wc;
+        //for(auto v: m) std::cout << v << std::endl;
+        int i = 0;
+        for(auto v: m) {
+            switch (i) {
+            case 1:
+                wa = wToDouble(v);
+                break;
+            case 2:
+                wb = wToDouble(v);
+                break;
+            case 3:
+                wc = wToDouble(v);
+                break;
+            }
+            i++;
+        }
+        //std::cout << wa << " " << wb << " " << wc << std::endl;
+        FromXYToZ(positions, wa, wb, wc);
     }
     else {
         warningBox("Unrecognized query!");
@@ -145,6 +191,32 @@ void QueryParser::FromXToY(std::vector<int> *positions, double xVal, double yVal
                 }
                 if (child2) {
                     if (child2->l_prime[0] == yVal) {
+                        positions->push_back(static_cast<int>(i));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void QueryParser::FromXYToZ(std::vector<int> *positions, double xVal, double yVal, double zVal)
+{
+    positions->clear();
+    for (size_t i = 0; i < this->nodes->size(); i++) {
+        for (size_t y = 0; y < this->nodes->at(i)->size(); y++) {
+            node *curr = this->nodes->at(i)->at(y);
+            node *child1 = curr->v[1];
+            node *child2 = curr->v[2];
+            if (curr->l_prime[0] == xVal || curr->l_prime[0] == yVal) {
+                if (child1) {
+                    if (child1->l_prime[0] == zVal) {
+                        positions->push_back(static_cast<int>(i));
+                        break;
+                    }
+                }
+                if (child2) {
+                    if (child2->l_prime[0] == zVal) {
                         positions->push_back(static_cast<int>(i));
                         break;
                     }

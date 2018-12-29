@@ -25,6 +25,7 @@ private:
     void Sim(std::vector<int> *positions, int threshold);
     void HasWx(std::vector<int> *positions, double wVal);
     void FromXToY(std::vector<int> *positions, double x, double y);
+    void FromXYToZ(std::vector<int> *positions, double xVal, double yVal, double zVal);
 };
 
 #endif // QUERYPARSER_H
