@@ -19,7 +19,7 @@
  */
 #define BAR_HEIGHT 40
 #define TREE_VISUAL_WIDTH 800
-#define TREE_VISUAL_HEIGHT 750
+#define TREE_VISUAL_HEIGHT 650
 #define LABEL_X_OFFSET 10
 #define LST_QUERY_X TREE_VISUAL_WIDTH
 #define WIDGET_W (this->width())

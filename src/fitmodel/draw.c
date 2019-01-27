@@ -489,7 +489,7 @@ tdraw *Make_Tdraw_Struct(arbre *tree)
 void Init_Tdraw_Struct(tdraw *w)
 {
   w->page_width  = 800;//510;
-  w->page_height = 750;
+  w->page_height = 650;//750;
 }
 
 /*********************************************************/

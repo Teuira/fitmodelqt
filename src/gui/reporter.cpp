@@ -10,7 +10,7 @@
 #define BAR_HEIGHT 40
 #define LABEL_X_OFFSET 10
 #define TREE_VISUAL_WIDTH 800
-#define TREE_VISUAL_HEIGHT 750
+#define TREE_VISUAL_HEIGHT 650
 
 void Print_Tree_Qt(QPainter *pnt, edge *b_root, tdraw *w, arbre *tree);
 void Print_Tree_Pre_Qt(QPainter *pnt, node *a, node *d, tdraw *w, arbre *tree);

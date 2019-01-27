@@ -82,5 +82,5 @@ void MainWindow::on_btnInfo_clicked()
 void MainWindow::on_btnGuide_clicked()
 {
     //QString fitmodelPath = QDir::cleanPath(QCoreApplication::applicationDirPath() + QDir::separator() + "guide.html");
-    QDesktopServices::openUrl(QUrl("https://github.com/Teuira/fitmodelqt"));
+    QDesktopServices::openUrl(QUrl("https://github.com/Teuira/fitmodelqt/wiki/User-guide"));
 }
