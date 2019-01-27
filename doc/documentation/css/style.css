@@ -1,0 +1,57 @@
+/**
+ * @file style.css
+ *
+ * @brief Modifications that will complete bootstrap
+ */
+
+ .bg-secondary {
+    background-color: #2c3e50 !important;
+}
+
+.bg-primary {
+    background-color: #6c969d !important;
+}
+
+hr.star-light::after {
+    color: #fff;
+    background-color: #6c969d;
+}
+
+#mainNav .navbar-nav li.nav-item a.nav-link:hover {
+    color: #99d5c9;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
+    color: #fff;
+    background: #99d5c9;
+}
+
+#a-externe {
+  color: rgb(44, 62, 80);
+}
+
+.center-div {
+     margin: 0 auto;
+     width: 100px;
+}
+
+#indexIG {
+  margin: auto;
+}
+
+#investigators {
+  padding-bottom: 90px;
+}
+
+#investigator {
+  color: #fff;
+  border-bottom: 1px solid #2c3e50;
+}
+
+#introduction {
+  background-color: #fff !important;
+}
+
+#processus {
+  background-color: #fff !important;
+}

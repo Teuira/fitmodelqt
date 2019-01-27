@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>FitModelQt - Documentation</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/freelancer.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">FitModelQt</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#introduction">Introduction</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Prérequis</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#processus">Processus</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#investigateurs">Investigateurs</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="img/profile.png" alt="">
+        <h1 class="text-uppercase mb-0">Documentation</h1>
+        <hr class="star-light">
+        <h2 class="font-weight-light mb-0">Projet de développement d’une interface de tri de résultats pour le programme FitModel</h2>
+      </div>
+    </header>
+
+    <!-- Introduction Section -->
+    <section class="bg-primary mb-0" id="introduction">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Introduction</h2>
+        <hr class="star-dark mb-7">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <p class="lead text-justify">Ce programme a pour but de permettre la visualisation des résultats obtenus grâce à FitModel
+              (développé par M. Guindon Stéphane) et d’avoir accès à un système de requêtes pour mettre en évidence les changements de
+              régime de sélection d’intérêt sur les arbres. </p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead text-justify">Cette interface graphique s’inscrit dans le cadre d’un projet du Master 2 Bio-informatique
+              de l’Université de Lyon 1. <br></br> Ce programme est disponible sur Windows, Mac et LINUX. </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prerequis Section -->
+    <section class="bg-primary text-white mb-0" id="about">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-white">Prérequis</h2>
+        <hr class="star-light mb-5">
+        <div class="text-justify">
+          A ce jour, FitModelQt ne permet pas de lancer directement FitModel depuis l’interface. Cela pourra être implémenté ultérieurement.
+          Il est donc impératif d’avoir au préalable généré les résultats de FitModel pour les visualiser dans l’interface graphique.
+
+          <br><br/>
+
+          La documentation pour l’installation de FitModel est disponible <a href="https://github.com/stephaneguindon/fitmodel/blob/master/src/README" target="blank" id="a-externe">ici</a>.
+
+          <br><br/>
+
+          L’interface graphique prend en entrée un arbre au format Newick et génère les arbres directement dans son interface. A partir de ces données ainsi générées, il est possible de faire des requêtes sur ces arbres.
+
+          Le lancement de l’interface graphique est disponible via un fichier exécutable (dossier "binary"). Une fenêtre s’ouvre, semblable à celle-ci :
+            <div class="col-md-6 col-lg-4 align-center" id="indexIG">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                  </div>
+                </div>
+                <img class="img-fluid" src="img/indexIG.png" alt="">
+              </a>
+            </div>
+            <br><br>
+
+            <div class="alert alert-warning " role="alert">
+              <strong>ATTENTION !</strong> Dans le cas où l’exécutable ne se lancerai pas correctement, il est possible de lancer l’interface grâce au logiciel Qt Creator.
+              Les détails de l’installation de ce logiciel sont disponibles <a href="https://www.qt.io/download" target="blank" id="a-externe">ici</a>.
+ Une fois le logiciel Qt Creator installé, dans l’onglet « Accueil », cliquez sur « Open Project » et ouvrez le fichier se FitModelQt.pro se trouvant dans le dossier « src » (/fitmodelqt/src/FitModelQt.pro).
+ Vous pouvez ensuite exécuter le programme (Ctrl + R, ou cliquez sur la flèche verte en bas à gauche de l’interface de QtCreator).
+            </div>
+
+            <div class="alert alert-danger" role="alert">
+              <h3>Spécificité MAC OS</h3>
+              A l'execution du fichier exécutable sur MAC OS, il vous sera peut être demandé, si vous le souhaitez, d'ouvrir cette application (car l'interface graphique
+              n'est pas développée par MacOS). Cliquez sur ouvrir puis rendez vous dans les "préférences systèmes", cliquez sur "sécurité et confidentialité"". En bas de
+              l'onglet général vous pouvez autoriser l'application FitModelGui a s'ouvrir. Une fois cela fait l'application s'ouvrira.
+              <br><br>
+
+              De plus, il existe une spécifité si vous possédez la version Mojav de OSX.
+              L'application ne fonctionnera correctement qu'avec le thème clair (onglet général dans les "préférence systèmes").
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processus Section -->
+    <section class="bg-primary mb-0" id="processus">
+      <div class="container">
+        <h2 class="text-center text-uppercase">Processus</h2>
+        <hr class="star-dark mb-7">
+          <h4>Lancer une visualisation :</h4>
+        <br><br/>
+          Pour lancer une visualisation des arbres phylogénétiques, il faut cliquer sur « Viewer » lorsque vous vous trouvez sur la page principale.
+
+          Le logiciel prend en entrée un fichier au format Newick, fournit par le logiciel FitModel.
+        <br><br/>
+        <ul>
+          <li>
+            Optionnel : un fichier de statistiques peut aussi lui être fourni.
+          </li>
+        </ul>
+          <br><br/>
+          <div class="align-center" id="indexIG">
+            <img class="img-responsive" src="img/tuto.png" alt="">
+          </div>
+
+        <br><br/><br><br/>
+
+        <div class="alert alert-primary" role="alert">
+        <strong>Note :</strong>
+        <br><br/>
+        Il y a autant d’arbres que de codons dans la séquence analysée. Les couleurs correspondent au régime de sélection suivant :
+          <blockquote>
+            <ul>
+              <li style="text-indent: 15px;">Vert (w1) : sélection neutre</li>
+              <li style="text-indent: 15px;">Bleu (w2) : sélection purificatrice</li>
+              <li style="text-indent: 15px;">Rouge (w3) : sélection positive</li>
+            </ul>
+          </blockquote>
+        </div>
+
+        <br><br>
+
+          <div class="alert alert-warning " role="alert">
+            <strong>ATTENTION !</strong> Les données au format Newick générées par l’ancienne version de FitModel ne sont pas compatibles avec les nouvelles versions de FitModel sur laquelle nous avons basé notre interface graphique.
+          </div>
+          <br><br/><br><br/>
+          <h4>La sélection sur les arbres :</h4>
+          Il vous est possible de sélectionner une partie de l'arbre ou la totalité de celui-ci (grâce à l'onglet "Whole tree").
+          Notez que les queries qui vous allez exécuter par la suite se feront sur votre sélection.
+          <br><br/>
+          Lorsque vous avez sélectionné une zone avec votre curseur, la sélection apparaît alors en jaune.
+          <br><br/>
+
+          <div class="col-md-6 col-lg-4 align-center" id="indexIG">
+            <img class="img-fluid" src="img/capture_sur_arbre.png" alt="">
+          </div>
+
+
+          <br><br/><br><br/>
+          <h4>La recherche sur les arbres (les queries) :</h4>
+          <br><br/>
+          Il est possible désormais de faire une recherche de changement de régime de sélection ou de conservation de celui-ci sur les arbres.
+          En premier lieu, il vous est possible de sélectionner seulement une région d’intérêt de l’arbre ou l’arbre tout entier, comme ci-dessous.
+          <br><br/>
+
+
+          Neuf recherches sont possibles sur votre arbre (bouton « Snippets » dans l’interface de visualisation) :
+          <br><br/>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q1">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q1.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q4">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q4.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q7">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q7.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q2">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q2.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q5">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q5.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q8">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q8.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q3">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q3.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q6">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q6.png" alt="">
+                </a>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#q9">
+                  <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                    <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                      <i class="fas fa-search-plus fa-3x" style="color:#2f3e46;"></i>
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="img/q9.png" alt="">
+                </a>
+              </div>
+            </div>
+          </div>
+          <br><br/><br><br/>
+
+          <div class="alert alert-warning " role="alert">
+            <strong>Remarques :</strong>
+
+            Les trois queries à droite sur l'écran des "Snippets" peuvent être modifées à votre guise dans le formulaire à gauche du bouton "Snippets".
+            Il vous est tout à fait possible de rentrer par exemple la querie "from w3 to w2" ou encore "from w1 to w3", par exemple. Toutefois,
+            cette version ne permet pas encore de combiner les queries. Une version ultérieure en donnera la possibilité. Cette liste de propositions à
+            l'écran des "Snippets" n'est donc pas exhaustive.
+          </div>
+
+          <br><br/><br><br/>
+
+          <h3>Exemple de résultats avec une querie sur tout l'arbre:</h3>
+          <br><br/><br><br/>
+          <div class="align-center" id="indexIG">
+            <img class="img-responsive" src="img/requete.png" alt="">
+          </div>
+
+
+      </div>
+
+
+      </div>
+    </section>
+
+
+    <!-- Investigateurs Section -->
+    <section class="bg-primary text-white mb-0" id="investigateurs">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-white">Investigateurs</h2>
+        <hr class="star-light mb-7">
+        <div class="col-md-12" id="investigators">
+          <div class="col-xs-6 col-sm-4 text-center" id="indexIG">
+            <p id="investigator"> Raquel Tavares </br> </p>
+            <p id="investigator"> Juliette Geoffray </br> </p>
+            <p id="investigator"> Davide Callegarin </br> </p>
+            <p id="investigator"> Marianne Taupin </br> </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+          <img src="img/bioinfo.png" alt="" id="indexIG">
+          <div class="col-md-4 mb-5 mb-lg-0" id="indexIG">
+            <h4 class="text-uppercase mb-4">Université Lyon 1</h4>
+            <p class="lead mb-0">43 Boulevard du 11 Novembre 1918
+              <br>69100 Villeurbanne</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Documentation - FitModel Qt</small>
+      </div>
+    </div>
+
+
+
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-to-top d-lg-none position-fixed ">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- Portfolio Modals -->
+    <!-- Portfolio Modal 1 -->
+    <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2 class="text-secondary text-uppercase mb-0">Ecran principal</h2>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/indexIG.png" alt="">
+              <p class="mb-5">Ceci est l'écran principal de FitModelQt. Il permet de lancer la visualisation des arbres grâce à l'onglet "Viewer".
+              L'onglet "Info" permet de lancer la documentation et l'onglet "Launch" devrait permettre de lancer FitModel directement depuis l'interface.
+              Cette option n'est pas encore implémentée.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio Modal 2 -->
+    <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2 class="text-secondary text-uppercase mb-0">Ecran d'une visualisation</h2>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/tuto.png" alt="">
+              <p class="mb-5">Ecran de visualisation après avoir choisi le fichier au format Newick et, éventuellement, un fichier de statistiques.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Portfolio Modal des queries -->
+    <div class="portfolio-modal mfp-hide" id="q1">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche du même régime de sélection que votre sélection</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q1.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres le même régime de sélection que celui dans la zone sélectionnée.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q2">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche d'un régime de sélection différent</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q2.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres un régime de sélection différent de celui dans la zone sélectionnée.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q3">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche d'un régime de sélection différent (modulo une marge d'erreur)</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q3.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres le même régime de sélection que celui sélectionné, en ajoutant une marge de flexibilité.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q4">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche dans les arbres une sélection positive sur le sous-arbre sélectionné</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q4.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres une sélection positive (w3) sur le sous-arbre sélectionné.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q5">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche dans les arbres d'une force évolutive neutre sur le sous-arbre sélectionné</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q5.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres une force évolutive neutre (w1) sur le sous-arbre sélectionné.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q6">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche dans les arbres une sélection purificatrice sur le sous-arbre sélectionné</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q6.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres une sélection purificatrice (w2) sur le sous-arbre sélectionné.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q7">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche d'un changement de modèle de sélection (neutre vers purificatrice)</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q7.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres un changement de sélection (de neutre vers purificatrice) sur le sous-arbre sélectionné.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q8">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche d'un changement de modèle de sélection (positive vers neutre)</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q8.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres un changement de sélection (de positive vers neutre) sur le sous-arbre sélectionné.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-modal mfp-hide" id="q9">
+      <div class="portfolio-modal-dialog bg-white">
+        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+          <i class="fa fa-3x fa-times"></i>
+        </a>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h3 class="text-secondary text-uppercase mb-0">Recherche d'un changement de modèle de sélection (positive vers purificatrice)</h3>
+              <hr class="star-dark mb-5">
+              <img class="img-fluid mb-5" src="img/q9.png" alt="">
+              <p class="mb-5">Cette querie permet de rechercher sur tous les arbres un changement de sélection (de positive vers purificatrice) sur le sous-arbre sélectionné.</p>
+              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
+                <i class="fa fa-close"></i>
+                Fermer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/freelancer.min.js"></script>
+
+  </body>
+
+</html>
