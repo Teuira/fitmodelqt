@@ -69,7 +69,9 @@ void DialogTreeSelector::on_btnBrowseTree_clicked()
             std::ofstream out(convertedOut);
             out << converted;
             out.close();
-            infoBox(QString::fromStdString("New file saved to: " + convertedOut));
+            infoBox(QString::fromStdString("New file saved to: " + convertedOut + "\n\nPress \"Next\" to continue."));
+            // Sets new path.
+            ui->leditTreePath->setText(QString::fromStdString(convertedOut));
         }
         return;
     }

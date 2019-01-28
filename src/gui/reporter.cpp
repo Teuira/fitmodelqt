@@ -7,7 +7,6 @@
 #include <QPainter>
 #include <QPdfWriter>
 
-#define BAR_HEIGHT 40
 #define LABEL_X_OFFSET 10
 #define TREE_VISUAL_WIDTH 800
 #define TREE_VISUAL_HEIGHT 650
@@ -79,6 +78,7 @@ void Reporter::save(QString fileOut)
         std::cout << pos << std::endl;
         QPixmap *pix = new QPixmap(TREE_VISUAL_WIDTH, TREE_VISUAL_HEIGHT);
         QPainter *paint = new QPainter(pix);
+        paint->fillRect(QRectF(0, 0, TREE_VISUAL_WIDTH, TREE_VISUAL_HEIGHT), QBrush(Qt::white));
         FitModelTreeWrapper *currTree = forest->at(pos - 1);
         Print_Tree_Qt(paint, currTree->GetRoot(), currTree->GetDrawStruct(), currTree->GetTree());
         painter.drawImage(50, 300, pix->toImage());
@@ -127,21 +127,21 @@ void Print_Tree_Qt(QPainter *pnt, edge *b_root, tdraw *w, arbre *tree)
 
 
     QPainterPath path;
-    path.moveTo(w->xcoord[b_root->left->num], w->ycoord[b_root->left->num] + BAR_HEIGHT);
-    path.lineTo(0, w->ycoord[b_root->left->num] + BAR_HEIGHT);
-    path.lineTo(0, w->ycoord[b_root->rght->num] + BAR_HEIGHT);
-    path.lineTo(w->xcoord[b_root->rght->num], w->ycoord[b_root->rght->num] + BAR_HEIGHT);
+    path.moveTo(w->xcoord[b_root->left->num], w->ycoord[b_root->left->num]);
+    path.lineTo(0, w->ycoord[b_root->left->num]);
+    path.lineTo(0, w->ycoord[b_root->rght->num]);
+    path.lineTo(w->xcoord[b_root->rght->num], w->ycoord[b_root->rght->num]);
     pnt->drawPath(path);
 
     if(b_root->left->tax) {
         qreal rcHeight = (double)w->page_height / tree->n_otu;
-        QRectF rcLabel(w->xcoord[b_root->left->num] + LABEL_X_OFFSET, w->ycoord[b_root->left->num] + BAR_HEIGHT - rcHeight / 2.0, 100, rcHeight);
+        QRectF rcLabel(w->xcoord[b_root->left->num] + LABEL_X_OFFSET, w->ycoord[b_root->left->num] - rcHeight / 2.0, 100, rcHeight);
         pnt->drawText(rcLabel, Qt::AlignCenter, QString::fromStdString(b_root->left->name));
     }
 
     if(b_root->rght->tax) {
         qreal rcHeight = (double)w->page_height / tree->n_otu;
-        QRectF rcLabel(w->xcoord[b_root->rght->num] + LABEL_X_OFFSET, w->ycoord[b_root->rght->num] + BAR_HEIGHT - rcHeight / 2.0, 100, rcHeight);
+        QRectF rcLabel(w->xcoord[b_root->rght->num] + LABEL_X_OFFSET, w->ycoord[b_root->rght->num] - rcHeight / 2.0, 100, rcHeight);
         pnt->drawText(rcLabel, Qt::AlignCenter, QString::fromStdString(b_root->rght->name));
     }
 
@@ -204,14 +204,14 @@ void Print_Tree_Pre_Qt(QPainter *pnt, node *a, node *d, tdraw *w, arbre *tree)
     }
 
     QPainterPath path;
-    path.moveTo(w->xcoord[a->num], w->ycoord[a->num] + BAR_HEIGHT);
-    path.lineTo(w->xcoord[a->num], w->ycoord[d->num] + BAR_HEIGHT);
-    path.lineTo(w->xcoord[d->num], w->ycoord[d->num] + BAR_HEIGHT);
+    path.moveTo(w->xcoord[a->num], w->ycoord[a->num]);
+    path.lineTo(w->xcoord[a->num], w->ycoord[d->num]);
+    path.lineTo(w->xcoord[d->num], w->ycoord[d->num]);
     pnt->drawPath(path);
 
     if(d->tax) {
         qreal rcHeight = (double)w->page_height / tree->n_otu;
-        QRectF rcLabel(w->xcoord[d->num] + LABEL_X_OFFSET, w->ycoord[d->num] + BAR_HEIGHT - rcHeight / 2.0, 100, rcHeight);
+        QRectF rcLabel(w->xcoord[d->num] + LABEL_X_OFFSET, w->ycoord[d->num] - rcHeight / 2.0, 100, rcHeight);
         pnt->drawText(rcLabel, Qt::AlignCenter, QString::fromStdString(d->name));
         return;
     }
