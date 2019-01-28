@@ -538,7 +538,7 @@ void PhyloTreeWidget::Print_Tree_Qt(QPainter *pnt, edge *b_root, tdraw *w, arbre
     step = (max-min)/13.;
 
     if(b_root->prob_sel_regime <= min+1.*step)
-        pnt->setPen(QColor(26, 26, 255));
+        pnt->setPen(QColor(26, /*26*/152, 255));
     else if(b_root->prob_sel_regime > min+1.*step && b_root->prob_sel_regime <= min+2.*step)
         pnt->setPen(QColor(26, 77, 255));
     else if(b_root->prob_sel_regime > min+2.*step && b_root->prob_sel_regime <= min+3.*step)
@@ -613,7 +613,7 @@ void PhyloTreeWidget::Print_Tree_Pre_Qt(QPainter *pnt, node *a, node *d, tdraw *
     For(i,3)
             if(a->v[i] == d) {
         if(a->b[i]->prob_sel_regime <= min+1.*step)
-            pnt->setPen(QColor(26, 26, 255));
+            pnt->setPen(QColor(26, /*26*/152, 255));
         else if(a->b[i]->prob_sel_regime > min+1.*step && a->b[i]->prob_sel_regime <= min+2.*step)
             pnt->setPen(QColor(26, 77, 255));
         else if(a->b[i]->prob_sel_regime > min+2.*step && a->b[i]->prob_sel_regime <= min+3.*step)
