@@ -38,7 +38,7 @@ void Reporter::save(QString fileOut)
     line += dat.toString();
     painter.drawText(20, 200, line);
     line = "Query: ";
-    painter.scale(2.0, 2.0);
+    //painter.scale(2.0, 2.0);
     line = "Total positions: ";
     line.append(QString::fromStdString(std::to_string(this->forest->size())));
     painter.drawText(20, 400, line);
@@ -49,10 +49,10 @@ void Reporter::save(QString fileOut)
     if (this->statsPath == "") {
         std::cout << "No report";
     } else {
-        painter.scale(0.1, 0.1);
-        int statsYPos = 10500;
+        //painter.scale(0.1, 0.1);
+        int statsYPos = 800;
         painter.drawText(20, statsYPos, "Statistics:");
-        statsYPos += 50;
+        statsYPos += 150;
         std::ifstream infile(this->statsPath.toStdString());
         std::string line;
         int i = 1;
@@ -71,7 +71,7 @@ void Reporter::save(QString fileOut)
         pdfwriter.newPage();
         QListWidgetItem* currItem = this->positions->item(i);
         int pos = currItem->text().toInt();
-        line = "";
+        line = "Position: ";
         line.append(QString::fromStdString(std::to_string(pos)));
         painter.drawText(20, 100, line);
         std::cout << pos << std::endl;
@@ -80,10 +80,12 @@ void Reporter::save(QString fileOut)
         paint->fillRect(QRectF(0, 0, TREE_VISUAL_WIDTH, TREE_VISUAL_HEIGHT), QBrush(Qt::white));
         FitModelTreeWrapper *currTree = forest->at(pos - 1);
         Print_Tree_Qt(paint, currTree->GetRoot(), currTree->GetDrawStruct(), currTree->GetTree());
+        painter.scale(2, 2);
         painter.drawImage(50, 300, pix->toImage());
+        painter.scale(0.5, 0.5);
         delete paint;
         delete pix;
-        // DO NOT DELETE TREES.
+        // DO NOT DELETE TREES!
     }
 }
 
