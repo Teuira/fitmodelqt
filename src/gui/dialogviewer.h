@@ -23,6 +23,9 @@ private:
     QString path;
     //std::vector<Tree*> *trees;
     std::vector<FitModelTreeWrapper *> *trees;
+
+protected:
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // DIALOGVIEWER_H

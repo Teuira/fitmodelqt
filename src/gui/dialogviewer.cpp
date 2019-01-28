@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QPushButton>
 #include <QFileInfo>
+#include <QPainter>
 
 #include "phylotreewidget.h"
 
@@ -28,6 +29,16 @@ DialogViewer::DialogViewer(QString filePath, QString statsPath, QWidget *parent)
     ui->phyloWidget->SetName(fileName);
     ui->phyloWidget->SetStatsPath(statsPath);
     ui->phyloWidget->SetForest(this->trees);
+}
+
+//!
+//! \brief DialogViewer::paintEvent
+//! \details All of the painting events and widget resising happens here.
+//!
+void DialogViewer::paintEvent(QPaintEvent *)
+{
+    QPainter painter(this);
+    painter.fillRect(QRectF(0.0, 0.0, this->width(), this->height()), QColor(0,0,0));
 }
 
 DialogViewer::~DialogViewer()
