@@ -3,6 +3,7 @@
 #include "dialogstatsselector.h"
 #include "msgboxes.h"
 
+#include <fstream>
 #include <iostream>
 
 #include <QFileDialog>
@@ -36,6 +37,14 @@ void DialogTreeSelector::on_btnBrowseTree_clicked()
 #ifdef PRINT_DEBUG
         std::cout << "No file selected!" << std::endl;
 #endif
+        return;
+    }
+    // Checks for file version.
+    std::ifstream ifs(fileName.toStdString());
+    std::string content((std::istreambuf_iterator<char>(ifs)),
+                           (std::istreambuf_iterator<char>()));
+    if (content.find("::") == std::string::npos) {
+        warningBox("Incorrect file format!\nMaybe this file has been created with an older version of FitModel.");
         return;
     }
     ui->leditTreePath->setText(fileName);
