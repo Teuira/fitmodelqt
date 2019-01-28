@@ -46,7 +46,7 @@ void DialogTreeSelector::on_btnBrowseTree_clicked()
                            (std::istreambuf_iterator<char>()));
     if (content.find("::") == std::string::npos) {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, "Wrong format", "Incorrect file format!\nMaybe this file has been created with an older version of FitModel.\nDo You want to try to convert it?",
+        reply = QMessageBox::question(this, "Wrong format", "Incorrect file format!\nMaybe this file has been created with an older version of FitModel.\n\nDo You want to try to convert it?",
                                         QMessageBox::Yes|QMessageBox::No);
         if (reply == QMessageBox::Yes) {
             // Creates a converted copy of the file.
