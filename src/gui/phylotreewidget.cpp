@@ -198,8 +198,10 @@ void PhyloTreeWidget::mousePressEvent(QMouseEvent *event)
 void PhyloTreeWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->type() == QEvent::MouseMove)
-        this->rcSelection.setBottomRight(event->pos());
+        if (event->pos().y() < this->height() - 20)
+            this->rcSelection.setBottomRight(event->pos());
 
+    std::cout << "ypos: " << event->y() << std::endl;
     // refresh
     update();
 }
