@@ -58,11 +58,10 @@ void Reporter::save(QString fileOut)
         int i = 1;
         while (std::getline(infile, line))
         {
+            if (line.find("Posterior") != std::string::npos)
+                break;
             statsYPos += 100;
             painter.drawText(20, statsYPos, QString::fromStdString(line));
-            if (i > 25) {
-                break;
-            }
             i += 1;
         }
     }
