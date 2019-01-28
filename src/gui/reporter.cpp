@@ -60,7 +60,7 @@ void Reporter::save(QString fileOut)
         {
             if (line.find("Posterior") != std::string::npos)
                 break;
-            statsYPos += 100;
+            statsYPos += 150;
             painter.drawText(20, statsYPos, QString::fromStdString(line));
             i += 1;
         }
