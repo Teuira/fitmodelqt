@@ -26,6 +26,7 @@ private:
     void HasWx(std::vector<int> *positions, double wVal);
     void FromXToY(std::vector<int> *positions, double x, double y);
     void FromXYToZ(std::vector<int> *positions, double xVal, double yVal, double zVal);
+    void FromABToCD(std::vector<int> *positions, double aVal, double bVal, double cVal, double dVal);
 };
 
 #endif // QUERYPARSER_H
