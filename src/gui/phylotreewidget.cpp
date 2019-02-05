@@ -80,7 +80,7 @@ PhyloTreeWidget::PhyloTreeWidget(QWidget *parent) : QWidget(parent)
     this->btnQuery = new QPushButton("Query", this);
     this->btnSnippets = new QPushButton("Snippets", this);
     this->lineQuery = new QLineEdit(this);
-    this->lblQueryResList = new QLabel("Positions matching the query:", this);
+    this->lblQueryResList = new QLabel("Matching positions:", this);
     this->lblQueryResList->setStyleSheet("QLabel { color : white; }");
     this->listPos = new QListWidget(this);
     this->lblSaveList = new QLabel("Positions to save: ", this);
